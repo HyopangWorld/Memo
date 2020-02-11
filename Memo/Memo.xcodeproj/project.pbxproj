@@ -3,16 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2F855657AC10B8F93060F4AF /* Pods_MemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02F6776F1AF391C2A3ECB26 /* Pods_MemoTests.framework */; };
 		4AF6CCCCFDD797B2542A42B4 /* Pods_Memo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3D867C81F97C80F0B4E8F8 /* Pods_Memo.framework */; };
 		769BC24E2DB0552399032D4A /* Pods_Memo_MemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEA157FFC459F0688F06DCD /* Pods_Memo_MemoUITests.framework */; };
+		DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263923F1132100AA8078 /* IndexViewController.swift */; };
+		DD38263D23F1151700AA8078 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD38263C23F1151700AA8078 /* .swiftlint.yml */; };
+		DD38263F23F116B000AA8078 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263E23F116B000AA8078 /* Constants.swift */; };
+		DD38264223F1366A00AA8078 /* MemoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38264123F1366A00AA8078 /* MemoListCell.swift */; };
+		DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38264323F13CAA00AA8078 /* IndexViewModel.swift */; };
+		DD38264623F13CB500AA8078 /* IndexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38264523F13CB500AA8078 /* IndexModel.swift */; };
+		DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD63D29723F0F82B00BC10B6 /* ViewController.swift */; };
 		DDC925E423F0EEDB00068D03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925E323F0EEDB00068D03 /* AppDelegate.swift */; };
 		DDC925E623F0EEDB00068D03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925E523F0EEDB00068D03 /* SceneDelegate.swift */; };
-		DDC925E823F0EEDB00068D03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925E723F0EEDB00068D03 /* ViewController.swift */; };
 		DDC925EB23F0EEDB00068D03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDC925E923F0EEDB00068D03 /* Main.storyboard */; };
 		DDC925ED23F0EEDC00068D03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDC925EC23F0EEDC00068D03 /* Assets.xcassets */; };
 		DDC925FB23F0EEDD00068D03 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925FA23F0EEDD00068D03 /* MemoTests.swift */; };
@@ -46,10 +52,16 @@
 		9D792FE5D9177D9F979EDE4A /* Pods-MemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoTests.debug.xcconfig"; path = "Target Support Files/Pods-MemoTests/Pods-MemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C02F6776F1AF391C2A3ECB26 /* Pods_MemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D880A0CBFCD1BBA71F791A34 /* Pods-Memo-MemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memo-MemoUITests.release.xcconfig"; path = "Target Support Files/Pods-Memo-MemoUITests/Pods-Memo-MemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DD38263923F1132100AA8078 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
+		DD38263C23F1151700AA8078 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		DD38263E23F116B000AA8078 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DD38264123F1366A00AA8078 /* MemoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListCell.swift; sourceTree = "<group>"; };
+		DD38264323F13CAA00AA8078 /* IndexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewModel.swift; sourceTree = "<group>"; };
+		DD38264523F13CB500AA8078 /* IndexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexModel.swift; sourceTree = "<group>"; };
+		DD63D29723F0F82B00BC10B6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DDC925E023F0EEDB00068D03 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC925E323F0EEDB00068D03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDC925E523F0EEDB00068D03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DDC925E723F0EEDB00068D03 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 		DDC925EA23F0EEDB00068D03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DDC925EC23F0EEDC00068D03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDC925F123F0EEDC00068D03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,9 +124,54 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DD38263B23F114EE00AA8078 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				DD38263E23F116B000AA8078 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		DD38264023F1363100AA8078 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DD38264123F1366A00AA8078 /* MemoListCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DD63D29923F0F86F00BC10B6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD63D29E23F110A800BC10B6 /* Common Components */,
+				DD63D29A23F1108200BC10B6 /* Index */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD63D29A23F1108200BC10B6 /* Index */ = {
+			isa = PBXGroup;
+			children = (
+				DD38264023F1363100AA8078 /* Components */,
+				DD38263923F1132100AA8078 /* IndexViewController.swift */,
+				DD38264323F13CAA00AA8078 /* IndexViewModel.swift */,
+				DD38264523F13CB500AA8078 /* IndexModel.swift */,
+			);
+			path = Index;
+			sourceTree = "<group>";
+		};
+		DD63D29E23F110A800BC10B6 /* Common Components */ = {
+			isa = PBXGroup;
+			children = (
+				DD63D29723F0F82B00BC10B6 /* ViewController.swift */,
+			);
+			path = "Common Components";
+			sourceTree = "<group>";
+		};
 		DDC925D723F0EEDB00068D03 = {
 			isa = PBXGroup;
 			children = (
+				DD38263C23F1151700AA8078 /* .swiftlint.yml */,
 				DDC925E223F0EEDB00068D03 /* Memo */,
 				DDC925F923F0EEDD00068D03 /* MemoTests */,
 				DDC9260423F0EEDD00068D03 /* MemoUITests */,
@@ -182,7 +239,8 @@
 		DDC9261523F0EFE200068D03 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				DDC925E723F0EEDB00068D03 /* ViewController.swift */,
+				DD63D29923F0F86F00BC10B6 /* Views */,
+				DD38263B23F114EE00AA8078 /* Constants */,
 				DDC925E323F0EEDB00068D03 /* AppDelegate.swift */,
 				DDC925E523F0EEDB00068D03 /* SceneDelegate.swift */,
 			);
@@ -200,6 +258,7 @@
 				DDC925DC23F0EEDB00068D03 /* Sources */,
 				DDC925DD23F0EEDB00068D03 /* Frameworks */,
 				DDC925DE23F0EEDB00068D03 /* Resources */,
+				EB64D58B97050F3304CD9F71 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -237,6 +296,7 @@
 				DDC925FD23F0EEDD00068D03 /* Sources */,
 				DDC925FE23F0EEDD00068D03 /* Frameworks */,
 				DDC925FF23F0EEDD00068D03 /* Resources */,
+				DC0E8C228484EF7FB072AA6F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -296,6 +356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD38263D23F1151700AA8078 /* .swiftlint.yml in Resources */,
 				DDC925ED23F0EEDC00068D03 /* Assets.xcassets in Resources */,
 				DDC925EB23F0EEDB00068D03 /* Main.storyboard in Resources */,
 			);
@@ -384,6 +445,40 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DC0E8C228484EF7FB072AA6F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Memo-MemoUITests/Pods-Memo-MemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Memo-MemoUITests/Pods-Memo-MemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Memo-MemoUITests/Pods-Memo-MemoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB64D58B97050F3304CD9F71 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Memo/Pods-Memo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Memo/Pods-Memo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Memo/Pods-Memo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -391,9 +486,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDC925E823F0EEDB00068D03 /* ViewController.swift in Sources */,
+				DD38263F23F116B000AA8078 /* Constants.swift in Sources */,
+				DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */,
+				DD38264223F1366A00AA8078 /* MemoListCell.swift in Sources */,
 				DDC925E423F0EEDB00068D03 /* AppDelegate.swift in Sources */,
+				DD38264623F13CB500AA8078 /* IndexModel.swift in Sources */,
 				DDC925E623F0EEDB00068D03 /* SceneDelegate.swift in Sources */,
+				DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */,
+				DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

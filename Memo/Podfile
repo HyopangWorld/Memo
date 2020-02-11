@@ -6,6 +6,20 @@ target 'Memo' do
   use_frameworks!
 
   # Pods for Memo
+  # RxSwift + Dependencies
+  pod 'RxSwift', '~> 5.0.1'
+  pod 'RxCocoa', '~> 5.0.1'
+  pod 'RxOptional', '~> 4.1.0'
+  pod 'RxAppState', '~> 1.6.0'
+  pod 'RxDataSources', '~> 4.0'
+
+  # UI (Autolayout, Image, Label)
+  pod 'SnapKit', '~> 5.0.1'
+  pod 'Kingfisher', '~> 5.11.0'
+
+  # Other Swift Utilites
+  pod 'Then', '~> 2.6.0'
+  pod 'SwiftLint'
 
   target 'MemoTests' do
     inherit! :search_paths
