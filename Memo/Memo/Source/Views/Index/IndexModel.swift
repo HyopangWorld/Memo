@@ -10,14 +10,25 @@ import Foundation
 import RxSwift
 
 struct IndexModel {
-    func getMemoList() -> [MemoListCell.Data] {
-        return [(id: 0,
-                 thumbnail: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                 title: "제목제목제목",
-                 description: "설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명")]
+    let userDefaultsManager: UserDefaultsManager
+    
+    init(userDefaultsManager: UserDefaultsManager = UserDefaultsManagerImpl()) {
+        self.userDefaultsManager = userDefaultsManager
     }
     
-    func deleteMemo(indexPath: IndexPath) -> [MemoListCell.Data] {
-        return []
+    
+    func getMemoList() -> [Memo]? {
+        return userDefaultsManager.getMemoList()
+    }
+    
+    func deleteMemo(id: Int) -> [Memo]? {
+        return userDefaultsManager.removeMemo(id: id)
+    }
+    
+    func parseMemo(memoList: [Memo]) -> [MemoListCell.Data] {
+        return memoList.map { (id: $0.id,
+                               thumbnail: $0.imageList.first ?? "",
+                               title: $0.title,
+                               description: $0.description) }
     }
 }

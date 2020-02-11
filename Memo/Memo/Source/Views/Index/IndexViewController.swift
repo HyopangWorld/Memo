@@ -11,12 +11,13 @@ import RxSwift
 import RxCocoa
 import RxAppState
 import RxDataSources
+import RxOptional
 import Then
 import SnapKit
 
 protocol IndexViewBindable {
     var viewWillAppear: PublishRelay<Void> { get }
-    var deleteData: PublishRelay<IndexPath> { get }
+    var deleteData: PublishRelay<Int> { get }
     var cellData: Driver<[MemoListCell.Data]> { get }
     var reloadList: Signal<Void> { get }
 }
@@ -41,6 +42,10 @@ final class IndexViewController: ViewController<IndexViewBindable> {
             .disposed(by: disposeBag)
         
         deleteCell
+            .map { [weak self] indexPath in
+                (self?.tableView.cellForRow(at: indexPath) as! MemoListCell).id
+            }
+            .filterNil()
             .bind(to: viewModel.deleteData)
             .disposed(by: disposeBag)
         

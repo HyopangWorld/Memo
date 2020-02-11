@@ -25,6 +25,9 @@
 		DDC9260623F0EEDD00068D03 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC9260523F0EEDD00068D03 /* MemoUITests.swift */; };
 		DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014F623F2447100EAD537 /* EditViewController.swift */; };
 		DDF014FA23F246F400EAD537 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014F923F246F400EAD537 /* DetailViewController.swift */; };
+		DDF014FD23F27C8700EAD537 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */; };
+		DDF0150223F27CDE00EAD537 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF0150123F27CDE00EAD537 /* Memo.swift */; };
+		DDF0150423F27E0400EAD537 /* UserDefaultsManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF0150323F27E0400EAD537 /* UserDefaultsManagerImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +78,9 @@
 		DDC9260723F0EEDD00068D03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDF014F623F2447100EAD537 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		DDF014F923F246F400EAD537 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		DDF0150123F27CDE00EAD537 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
+		DDF0150323F27E0400EAD537 /* UserDefaultsManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManagerImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,7 +252,9 @@
 			isa = PBXGroup;
 			children = (
 				DD63D29923F0F86F00BC10B6 /* Views */,
+				DDF0150023F27CCD00EAD537 /* Models */,
 				DD38263B23F114EE00AA8078 /* Constants */,
+				DDF014FB23F27BF500EAD537 /* DataManager */,
 				DDC925E323F0EEDB00068D03 /* AppDelegate.swift */,
 				DDC925E523F0EEDB00068D03 /* SceneDelegate.swift */,
 			);
@@ -267,6 +275,23 @@
 				DDF014F923F246F400EAD537 /* DetailViewController.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		DDF014FB23F27BF500EAD537 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */,
+				DDF0150323F27E0400EAD537 /* UserDefaultsManagerImpl.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		DDF0150023F27CCD00EAD537 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DDF0150123F27CDE00EAD537 /* Memo.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,11 +536,14 @@
 				DD38263F23F116B000AA8078 /* Constants.swift in Sources */,
 				DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */,
 				DD38264223F1366A00AA8078 /* MemoListCell.swift in Sources */,
+				DDF0150223F27CDE00EAD537 /* Memo.swift in Sources */,
 				DDC925E423F0EEDB00068D03 /* AppDelegate.swift in Sources */,
+				DDF014FD23F27C8700EAD537 /* UserDefaultsManager.swift in Sources */,
 				DD38264623F13CB500AA8078 /* IndexModel.swift in Sources */,
 				DDC925E623F0EEDB00068D03 /* SceneDelegate.swift in Sources */,
 				DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */,
 				DDF014FA23F246F400EAD537 /* DetailViewController.swift in Sources */,
+				DDF0150423F27E0400EAD537 /* UserDefaultsManagerImpl.swift in Sources */,
 				DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */,
 				DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */,
 			);
