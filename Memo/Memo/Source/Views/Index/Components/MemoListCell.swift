@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxDataSources
 import Kingfisher
 import Then
 
@@ -30,7 +33,7 @@ class MemoListCell: UITableViewCell {
     }
 
     func setData(data: Data) {
-        self.id = data.id
+        id = data.id
         titleLabel.text = data.title
         descriptionLabel.text = data.description
         thumbnailView.kf.setImage(with: URL(string: data.thumbnail), placeholder: UIImage(named: "placeholder"))
@@ -43,7 +46,7 @@ class MemoListCell: UITableViewCell {
             $0.leading.equalToSuperview().inset(UI.sideMargin)
             $0.top.equalToSuperview().inset(UI.titleTopMargin)
             $0.height.equalToSuperview().dividedBy(2)
-            $0.width.equalTo(self.frame.width - UI.thumbSize)
+            $0.width.equalTo(self.frame.width - UI.thumbSize - UI.thumbLeftMargin - (UI.sideMargin * 2))
         }
         
         descriptionLabel.font = UI.descriptFont
@@ -53,7 +56,7 @@ class MemoListCell: UITableViewCell {
             $0.leading.equalToSuperview().inset(UI.sideMargin)
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.bottom.equalToSuperview().inset(UI.descriptTopMargin)
-            $0.width.equalTo(self.frame.width - UI.thumbSize)
+            $0.width.equalTo(self.frame.width - UI.thumbSize - UI.thumbLeftMargin - (UI.sideMargin * 2))
         }
         
         self.addSubview(thumbnailView)
@@ -66,4 +69,3 @@ class MemoListCell: UITableViewCell {
         }
     }
 }
-

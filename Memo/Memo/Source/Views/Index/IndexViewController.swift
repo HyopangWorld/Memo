@@ -16,6 +16,7 @@ import SnapKit
 
 protocol IndexViewBindable {
     var viewWillAppear: PublishRelay<Void> { get }
+    var deleteData: PublishRelay<IndexPath> { get }
     var cellData: Driver<[MemoListCell.Data]> { get }
     var reloadList: Signal<Void> { get }
 }
@@ -25,6 +26,11 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     private typealias UI = Constants.UI.Index
     
     let tableView = UITableView()
+    let toolBar = UIToolbar()
+    let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
+    let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    
+    let deleteCell = PublishRelay<IndexPath>()
     
     override func bind(_ viewModel: IndexViewBindable) {
         self.disposeBag = DisposeBag()
@@ -32,6 +38,10 @@ final class IndexViewController: ViewController<IndexViewBindable> {
         self.rx.viewWillAppear
             .map{ _ in Void() }
             .bind(to: viewModel.viewWillAppear)
+            .disposed(by: disposeBag)
+        
+        deleteCell
+            .bind(to: viewModel.deleteData)
             .disposed(by: disposeBag)
         
         viewModel.cellData
@@ -42,6 +52,15 @@ final class IndexViewController: ViewController<IndexViewBindable> {
         
         viewModel.reloadList
             .emit(onNext: { [weak self] _ in self?.tableView.reloadData() })
+            .disposed(by: disposeBag)
+        
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        editBtn.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                let editViewController = EditViewController()
+                self?.navigationController?.pushViewController(editViewController, animated: true)
+            })
             .disposed(by: disposeBag)
     }
     
@@ -60,6 +79,7 @@ extension IndexViewController {
             $0.separatorInset.left = Constants.UI.IndexCell.sideMargin
             $0.separatorInset.right = Constants.UI.IndexCell.sideMargin
             $0.rowHeight = Constants.UI.IndexCell.height
+            $0.delegate = self
         }
         view.addSubview(tableView)
         var height: CGFloat = 0
@@ -73,9 +93,6 @@ extension IndexViewController {
     }
     
     private func buildToolbar() -> UIView {
-        let toolBar = UIToolbar()
-        let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapEditButton))
         toolBar.setItems([leftSpace, editBtn], animated: true)
         toolBar.backgroundColor = UI.backgroundColor
         toolBar.barTintColor = UI.backgroundColor
@@ -99,8 +116,21 @@ extension IndexViewController {
         
         return line
     }
+}
+
+extension IndexViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "삭제") { [weak self] (action, indexPath) in
+            self?.deleteCell.accept(indexPath)
+        }
+        
+        return [delete]
+    }
     
-    @objc private func didTapEditButton() {
-        // TODO: go to EditViewController
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? MemoListCell else { return }
+        let detailViewController = DetailViewController()
+        detailViewController.id = cell.id
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

@@ -11,15 +11,21 @@ import RxCocoa
 
 struct IndexViewModel: IndexViewBindable {
     let viewWillAppear = PublishRelay<Void>()
+    let deleteData = PublishRelay<IndexPath>()
     let cellData: Driver<[MemoListCell.Data]>
     let reloadList: Signal<Void>
     
     init(model: IndexModel = IndexModel()) {
-        cellData = viewWillAppear
+        let deleteMemo = deleteData
+            .map(model.deleteMemo)
+        
+        let getMemo = viewWillAppear
             .map(model.getMemoList)
+        
+        cellData = Observable.merge(deleteMemo, getMemo)
             .asDriver(onErrorDriveWith: .empty())
         
-        reloadList = viewWillAppear
+        reloadList = Observable.merge(deleteMemo, getMemo)
             .map { _ in Void() }
             .asSignal(onErrorSignalWith: .empty())
     }
