@@ -14,7 +14,7 @@ import Kingfisher
 import Then
 
 class MemoListCell: UITableViewCell {
-    typealias Data = (id: Int, thumbnail: String, title: String, description: String)
+    typealias Data = (id: Int, thumbnail: String?, title: String, description: String)
     typealias UI = Constants.UI.IndexCell
 
     let thumbnailView = UIImageView()
@@ -36,7 +36,9 @@ class MemoListCell: UITableViewCell {
         id = data.id
         titleLabel.text = data.title
         descriptionLabel.text = data.description
-        thumbnailView.kf.setImage(with: URL(string: data.thumbnail), placeholder: UIImage(named: "placeholder"))
+        if let url = data.thumbnail {
+            thumbnailView.kf.setImage(with: URL(string: url), placeholder: UIImage(named: "placeholder"))
+        }
     }
     
     private func layout() {

@@ -11,5 +11,5 @@ import Foundation
 struct Memo {
     let id: Int
     let title, description: String
-    let imageList: [String]
+    let imageList: [String]?
 }

@@ -35,6 +35,12 @@ public struct Constants {
             static let thumbLeftMargin: CGFloat = 10
             static let thumbSize: CGFloat = 55
         }
+        
+        struct Detail {
+            static let titleFont: UIFont = .systemFont(ofSize: 23, weight: .bold)
+            static let descriptionFont: UIFont = .systemFont(ofSize: 15, weight: .regular)
+            static let imageMargin: CGFloat = 10
+        }
     }
     
     struct Text {

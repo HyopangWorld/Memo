@@ -16,7 +16,6 @@ struct IndexModel {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    
     func getMemoList() -> [Memo]? {
         return userDefaultsManager.getMemoList()
     }
@@ -27,7 +26,7 @@ struct IndexModel {
     
     func parseMemo(memoList: [Memo]) -> [MemoListCell.Data] {
         return memoList.map { (id: $0.id,
-                               thumbnail: $0.imageList.first ?? "",
+                               thumbnail: $0.imageList?.first,
                                title: $0.title,
                                description: $0.description) }
     }

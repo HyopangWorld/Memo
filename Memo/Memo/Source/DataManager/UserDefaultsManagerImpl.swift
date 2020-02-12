@@ -13,7 +13,6 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
     
     func getMemoList() -> [Memo]? {
         guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
-        
         return parseListToMemo(list: list)
     }
     
@@ -26,7 +25,8 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
     }
     
     func updateMemo(memo: Memo) -> [Memo]? {
-        guard var list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
+        var list = Dictionary<String, Any>()
+        if let data = UserDefaults.standard.dictionary(forKey: memoKey) { list = data }
         list.updateValue(parseMemoToList(memo: memo), forKey: "\(memo.id)")
         UserDefaults.standard.set(list, forKey: memoKey)
         
@@ -49,6 +49,6 @@ extension UserDefaultsManagerImpl {
         return [ "id": memo.id,
                  "title": memo.title,
                  "description": memo.description,
-                 "imageList": memo.imageList ]
+                 "imageList": memo.imageList ?? [] ]
     }
 }

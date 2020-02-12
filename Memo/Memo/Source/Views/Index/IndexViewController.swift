@@ -27,9 +27,6 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     private typealias UI = Constants.UI.Index
     
     let tableView = UITableView()
-    let toolBar = UIToolbar()
-    let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
-    let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     
     let deleteCell = PublishRelay<IndexPath>()
     
@@ -60,16 +57,9 @@ final class IndexViewController: ViewController<IndexViewBindable> {
             .disposed(by: disposeBag)
         
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
-        
-        editBtn.rx.tap.asObservable()
-            .subscribe(onNext: { [weak self] _ in
-                let editViewController = EditViewController()
-                self?.navigationController?.pushViewController(editViewController, animated: true)
-            })
-            .disposed(by: disposeBag)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func layout() {
         view.backgroundColor = UI.backgroundColor
         navigationItem.title = TEXT.title
         buildMemoList(bottomView: buildToolbar())
@@ -87,9 +77,9 @@ extension IndexViewController {
             $0.delegate = self
         }
         view.addSubview(tableView)
-        var height: CGFloat = 0
-        if #available(iOS 11.0, *) { height = Constants.UI.Base.safeAreaInsetsTop + (navigationController?.navigationBar.frame.height ?? 0) }
-        else { height = self.topLayoutGuide.length }
+        var height: CGFloat = navigationController?.navigationBar.frame.height ?? 0
+        if #available(iOS 11.0, *) { height += Constants.UI.Base.safeAreaInsetsTop  }
+        else { height += UIApplication.shared.statusBarFrame.size.height }
         tableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview().offset(height)
@@ -98,6 +88,16 @@ extension IndexViewController {
     }
     
     private func buildToolbar() -> UIView {
+        let toolBar = UIToolbar()
+        let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
+        let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        editBtn.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let editViewController = EditViewController()
+                self?.navigationController?.pushViewController(editViewController, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         toolBar.setItems([leftSpace, editBtn], animated: true)
         toolBar.backgroundColor = UI.backgroundColor
         toolBar.barTintColor = UI.backgroundColor
