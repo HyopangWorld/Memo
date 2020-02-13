@@ -14,6 +14,7 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
     
     func getMemoList() -> [Memo]? {
         guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
+        
         return parseListToMemo(list: list)
     }
     
@@ -46,6 +47,7 @@ extension UserDefaultsManagerImpl {
     private func parseListToMemo(list: Dictionary<String, Any>) -> [Memo] {
         return list.values.map { dictionary -> Memo in
             guard let memo = dictionary as? Dictionary<String, Any> else { return dummyData }
+            
             return Memo(id: memo["id"] as? Int ?? -1,
                         title: memo["title"] as? String ?? "",
                         description: memo["description"] as? String ?? "",

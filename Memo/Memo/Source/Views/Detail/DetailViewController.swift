@@ -83,6 +83,7 @@ extension DetailViewController {
         let descriptionView = buildDescriptionView(text: data.description, topView: titleView)
         let imageList = buildImageSlider(imageList: data.imageList ?? [], topView: descriptionView)
         let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.btmMargin
+        
         scrollView.contentSize = CGSize(width: view.frame.width, height: contentsHeight)
         scrollView.contentInset = UIEdgeInsets.init(top: self.getTopAreaHeight(), left: 0, bottom: 0, right: 0)
         scrollView.setContentOffset(CGPoint(x: 0, y: -self.getTopAreaHeight()), animated: false)
@@ -130,16 +131,19 @@ extension DetailViewController {
     
     private func buildImageSlider(imageList: [String], topView: UIView) -> [UIImageView]{
         var imageViewList: [UIImageView] = []
+        
         for i in 0..<imageList.count {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
             imageView.kf.setImage(with: URL(string: imageList[i]), placeholder: UIImage(named: "placeholder"))
+            
             scrollView.addSubview(imageView)
             imageView.snp.makeConstraints {
                 $0.top.equalTo(topView.snp.bottom).offset(UI.imageHeight * CGFloat(i) + UI.imageMargin * CGFloat(i+1))
                 $0.height.equalTo(UI.imageHeight)
                 $0.leading.width.equalToSuperview().inset(UI.imageMargin)
             }
+            
             imageViewList.append(imageView)
         }
         

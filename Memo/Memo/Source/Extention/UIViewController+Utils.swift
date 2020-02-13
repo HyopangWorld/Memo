@@ -13,6 +13,7 @@ extension UIViewController {
         var height: CGFloat = navigationController?.navigationBar.frame.height ?? 0
         if #available(iOS 11.0, *) { height += Constants.UI.Base.safeAreaInsetsTop  }
         else { height += UIApplication.shared.statusBarFrame.size.height }
+        
         return height
     }
 }

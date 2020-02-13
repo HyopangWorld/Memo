@@ -62,6 +62,7 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     override func layout() {
         view.backgroundColor = Constants.UI.Base.toolbarColor
         navigationItem.title = TEXT.title
+        
         buildMemoList(btmView: buildToolbar())
     }
 }
@@ -87,6 +88,7 @@ extension IndexViewController {
     private func buildToolbar() -> UIView {
         let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
         let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
         editBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 let editViewController = EditViewController()
@@ -113,6 +115,7 @@ extension IndexViewController: UITableViewDelegate {
         let detailViewModel = DetailViewModel()
         detailViewController.id = cell.id
         detailViewController.bind(detailViewModel)
+        
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

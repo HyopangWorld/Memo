@@ -25,6 +25,7 @@ class MemoListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle = .default, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         layout()
     }
 
@@ -61,8 +62,8 @@ class MemoListCell: UITableViewCell {
             $0.width.equalTo(self.frame.width - UI.thumbSize - UI.thumbLeftMargin - (UI.sideMargin * 2))
         }
         
-        self.addSubview(thumbnailView)
         thumbnailView.contentMode = .scaleToFill
+        self.addSubview(thumbnailView)
         thumbnailView.snp.updateConstraints {
             $0.trailing.equalToSuperview().inset(UI.sideMargin)
             $0.leading.equalTo(descriptionLabel.snp.trailing).offset(UI.thumbLeftMargin)

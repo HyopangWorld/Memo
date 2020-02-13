@@ -27,6 +27,7 @@ extension UITextView {
     
     func getEstimatedSize() -> CGSize {
         let size = CGSize(width: self.frame.width, height: .infinity)
+        
         return self.sizeThatFits(size)
     }
 }
