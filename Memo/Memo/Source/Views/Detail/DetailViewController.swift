@@ -23,7 +23,7 @@ protocol DetailViewBindable {
 
 final class DetailViewController: ViewController<DetailViewBindable> {
     typealias UI = Constants.UI.Detail
-
+    
     let scrollView = UIScrollView()
     var id: Int?
     
@@ -39,7 +39,8 @@ final class DetailViewController: ViewController<DetailViewBindable> {
         
         viewModel.memoData
             .emit(onNext: { [weak self] memo in
-                guard let btmView = self?.buildToolbar() else { return }
+                guard let alert = self?.buildAlert() else { return }
+                guard let btmView = self?.buildToolbar(alert: alert) else { return }
                 self?.buildMemoBoard(btmView: btmView, data: memo)
             })
             .disposed(by: disposeBag)
@@ -57,14 +58,24 @@ final class DetailViewController: ViewController<DetailViewBindable> {
 }
 
 extension DetailViewController {
-    private func buildToolbar() -> UIView {
+    private func buildAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "삭제하시겠습니까?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            guard let id = self?.id else { return }
+            self?.viewModel?.deleteData.accept(id)
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        return alert
+    }
+    
+    private func buildToolbar(alert: UIAlertController) -> UIView {
         let trashBtn = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
         let centerSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
         trashBtn.rx.tap
             .subscribe(onNext: { [weak self] id in
-                guard let id = self?.id else { return }
-                self?.viewModel?.deleteData.accept(id)
+                self?.present(alert, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         
