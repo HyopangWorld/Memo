@@ -15,8 +15,7 @@ extension UITextView {
         self.isScrollEnabled = false
         self.rx.didChange.startWith(Void())
             .subscribe(onNext: { _ in
-                let size = CGSize(width: self.frame.width, height: .infinity)
-                let estimatedSize = self.sizeThatFits(size)
+                let estimatedSize = self.getEstimatedSize()
                 self.constraints.forEach { constraint in
                     if constraint.firstAttribute == .height {
                         constraint.constant = estimatedSize.height
@@ -24,5 +23,10 @@ extension UITextView {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    func getEstimatedSize() -> CGSize {
+        let size = CGSize(width: self.frame.width, height: .infinity)
+        return self.sizeThatFits(size)
     }
 }

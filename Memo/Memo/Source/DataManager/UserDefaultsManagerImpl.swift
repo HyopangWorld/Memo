@@ -10,16 +10,22 @@ import Foundation
 
 struct UserDefaultsManagerImpl: UserDefaultsManager {
     private let memoKey = "Memo"
+    private let dummyData = Memo(id: -1, title: "", description: "", imageList: [])
     
     func getMemoList() -> [Memo]? {
         guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
         return parseListToMemo(list: list)
     }
     
+    func getMemo(id: Int) -> Memo? {
+        return getMemoList()?.filter { $0.id == id }.first
+    }
+    
     func removeMemo(id: Int) -> [Memo]? {
         guard var list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
         list.removeValue(forKey: "\(id)")
         UserDefaults.standard.set(list, forKey: memoKey)
+        UserDefaults.standard.synchronize()
         
         return parseListToMemo(list: list)
     }
@@ -28,7 +34,9 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
         var list = Dictionary<String, Any>()
         if let data = UserDefaults.standard.dictionary(forKey: memoKey) { list = data }
         list.updateValue(parseMemoToList(memo: memo), forKey: "\(memo.id)")
+        print("\(list)")
         UserDefaults.standard.set(list, forKey: memoKey)
+        UserDefaults.standard.synchronize()
         
         return parseListToMemo(list: list)
     }
@@ -37,11 +45,11 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
 extension UserDefaultsManagerImpl {
     private func parseListToMemo(list: Dictionary<String, Any>) -> [Memo] {
         return list.values.map { dictionary -> Memo in
-            guard let memo = dictionary as? Dictionary<String, Any> else { return Memo(id: -1, title: "", description: "", imageList: []) }
+            guard let memo = dictionary as? Dictionary<String, Any> else { return dummyData }
             return Memo(id: memo["id"] as? Int ?? -1,
                         title: memo["title"] as? String ?? "",
                         description: memo["description"] as? String ?? "",
-                        imageList: memo["imageUrl"] as? [String] ?? [])
+                        imageList: memo["imageList"] as? [String] ?? [])
         }
     }
     

@@ -37,8 +37,10 @@ public struct Constants {
         }
         
         struct Detail {
+            static let bottomMargin: CGFloat = 20
             static let titleFont: UIFont = .systemFont(ofSize: 23, weight: .bold)
             static let descriptionFont: UIFont = .systemFont(ofSize: 15, weight: .regular)
+            static let imageHeight: CGFloat = 200
             static let imageMargin: CGFloat = 10
         }
     }

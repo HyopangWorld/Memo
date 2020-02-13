@@ -21,7 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootViewController.bind(rootViewModel)
         
         //hw_kim : 임시 데이터
-        _ = UserDefaultsManagerImpl().updateMemo(memo: Memo(id: 1, title: "안녕하세요", description: "안녕하세요 반갑습니다.", imageList: nil))
+        _ = UserDefaultsManagerImpl().updateMemo(memo: Memo(id: 1,
+                                                            title: "안녕하세요",
+                                                            description: "안녕하세요 반갑습니다.",
+                                                            imageList: ["https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687",
+        "https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687",
+        "https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687"]))
 
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)

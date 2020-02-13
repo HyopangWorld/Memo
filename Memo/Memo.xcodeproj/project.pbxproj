@@ -10,6 +10,7 @@
 		2F855657AC10B8F93060F4AF /* Pods_MemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02F6776F1AF391C2A3ECB26 /* Pods_MemoTests.framework */; };
 		4AF6CCCCFDD797B2542A42B4 /* Pods_Memo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3D867C81F97C80F0B4E8F8 /* Pods_Memo.framework */; };
 		769BC24E2DB0552399032D4A /* Pods_Memo_MemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEA157FFC459F0688F06DCD /* Pods_Memo_MemoUITests.framework */; };
+		DD2FC59123F4D24F00F8630C /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */; };
 		DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263923F1132100AA8078 /* IndexViewController.swift */; };
 		DD38263D23F1151700AA8078 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD38263C23F1151700AA8078 /* .swiftlint.yml */; };
 		DD38263F23F116B000AA8078 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263E23F116B000AA8078 /* Constants.swift */; };
@@ -18,6 +19,8 @@
 		DD38264623F13CB500AA8078 /* IndexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38264523F13CB500AA8078 /* IndexModel.swift */; };
 		DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD63D29723F0F82B00BC10B6 /* ViewController.swift */; };
 		DDAE052123F398B300E1DB9C /* UITextView+UItils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE052023F398B300E1DB9C /* UITextView+UItils.swift */; };
+		DDAE052323F3E7FD00E1DB9C /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE052223F3E7FD00E1DB9C /* DetailViewModel.swift */; };
+		DDAE052523F3E80700E1DB9C /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE052423F3E80700E1DB9C /* DetailModel.swift */; };
 		DDC925E423F0EEDB00068D03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925E323F0EEDB00068D03 /* AppDelegate.swift */; };
 		DDC925E623F0EEDB00068D03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925E523F0EEDB00068D03 /* SceneDelegate.swift */; };
 		DDC925EB23F0EEDB00068D03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDC925E923F0EEDB00068D03 /* Main.storyboard */; };
@@ -58,6 +61,7 @@
 		9D792FE5D9177D9F979EDE4A /* Pods-MemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoTests.debug.xcconfig"; path = "Target Support Files/Pods-MemoTests/Pods-MemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C02F6776F1AF391C2A3ECB26 /* Pods_MemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D880A0CBFCD1BBA71F791A34 /* Pods-Memo-MemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memo-MemoUITests.release.xcconfig"; path = "Target Support Files/Pods-Memo-MemoUITests/Pods-Memo-MemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		DD38263923F1132100AA8078 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		DD38263C23F1151700AA8078 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DD38263E23F116B000AA8078 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 		DD38264523F13CB500AA8078 /* IndexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexModel.swift; sourceTree = "<group>"; };
 		DD63D29723F0F82B00BC10B6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DDAE052023F398B300E1DB9C /* UITextView+UItils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+UItils.swift"; sourceTree = "<group>"; };
+		DDAE052223F3E7FD00E1DB9C /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		DDAE052423F3E80700E1DB9C /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		DDC925E023F0EEDB00068D03 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC925E323F0EEDB00068D03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDC925E523F0EEDB00068D03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				DDAE052023F398B300E1DB9C /* UITextView+UItils.swift */,
+				DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -284,6 +291,8 @@
 			isa = PBXGroup;
 			children = (
 				DDF014F923F246F400EAD537 /* DetailViewController.swift */,
+				DDAE052223F3E7FD00E1DB9C /* DetailViewModel.swift */,
+				DDAE052423F3E80700E1DB9C /* DetailModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -544,7 +553,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDAE052523F3E80700E1DB9C /* DetailModel.swift in Sources */,
 				DD38263F23F116B000AA8078 /* Constants.swift in Sources */,
+				DD2FC59123F4D24F00F8630C /* UIViewController+Utils.swift in Sources */,
 				DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */,
 				DD38264223F1366A00AA8078 /* MemoListCell.swift in Sources */,
 				DDF0150223F27CDE00EAD537 /* Memo.swift in Sources */,
@@ -557,6 +568,7 @@
 				DDF014FA23F246F400EAD537 /* DetailViewController.swift in Sources */,
 				DDF0150423F27E0400EAD537 /* UserDefaultsManagerImpl.swift in Sources */,
 				DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */,
+				DDAE052323F3E7FD00E1DB9C /* DetailViewModel.swift in Sources */,
 				DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

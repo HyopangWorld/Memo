@@ -77,12 +77,9 @@ extension IndexViewController {
             $0.delegate = self
         }
         view.addSubview(tableView)
-        var height: CGFloat = navigationController?.navigationBar.frame.height ?? 0
-        if #available(iOS 11.0, *) { height += Constants.UI.Base.safeAreaInsetsTop  }
-        else { height += UIApplication.shared.statusBarFrame.size.height }
         tableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview().offset(height)
+            $0.top.equalToSuperview().offset(self.getTopAreaHeight())
             $0.bottom.equalTo(bottomView.snp.top)
         }
     }
@@ -135,7 +132,9 @@ extension IndexViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? MemoListCell else { return }
         let detailViewController = DetailViewController()
+        let detailViewModel = DetailViewModel()
         detailViewController.id = cell.id
+        detailViewController.bind(detailViewModel)
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

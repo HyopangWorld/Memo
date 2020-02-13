@@ -10,6 +10,7 @@ import Foundation
 
 protocol UserDefaultsManager {
     func getMemoList() -> [Memo]?
+    func getMemo(id: Int) -> Memo?
     func removeMemo(id: Int) -> [Memo]?
     func updateMemo(memo: Memo) -> [Memo]?
 }
