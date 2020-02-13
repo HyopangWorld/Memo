@@ -18,4 +18,8 @@ struct DetailModel {
     func getMemo(id: Int) -> Memo? {
         return userDefaultsManager.getMemo(id: id)
     }
+    
+    func deleteMemo(id: Int) -> [Memo]? {
+        return userDefaultsManager.removeMemo(id: id)
+    }
 }

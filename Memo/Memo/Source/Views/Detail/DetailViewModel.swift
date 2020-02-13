@@ -10,12 +10,19 @@ import RxSwift
 import RxCocoa
 
 struct DetailViewModel: DetailViewBindable {
-    let viewWillAppear = PublishRelay<Int>()
+    let viewDidLoad = PublishRelay<Int>()
+    let deleteData = PublishRelay<Int>()
     let memoData: Signal<Memo>
+    let memoDeleted: Signal<[Memo]>
     
     init(model: DetailModel = DetailModel()) {
-        memoData = viewWillAppear
+        memoData = viewDidLoad
             .map(model.getMemo(id:))
+            .filterNil()
+            .asSignal(onErrorSignalWith: .empty())
+
+        memoDeleted = deleteData
+            .map(model.deleteMemo(id:))
             .filterNil()
             .asSignal(onErrorSignalWith: .empty())
     }

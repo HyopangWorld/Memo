@@ -14,11 +14,9 @@ public struct Constants {
         struct Base {
             @available(iOS 11.0, *)
             static let safeAreaInsetsTop: CGFloat = (UIApplication.shared.windows.first { $0.isKeyWindow })?.safeAreaInsets.top ?? 0
-        }
-        
-        struct Index {
-            static let backgroundColor: UIColor = UIColor(displayP3Red: (245/255), green: (245/255), blue: (245/255), alpha: 1)
+            static let toolbarColor: UIColor = .white
             static let toolBarHeight: CGFloat = 50
+            static let lineHeight: CGFloat = 1
         }
         
         struct IndexCell {
@@ -37,7 +35,8 @@ public struct Constants {
         }
         
         struct Detail {
-            static let bottomMargin: CGFloat = 20
+            static let backgroundColor: UIColor = UIColor(displayP3Red: (245/255), green: (245/255), blue: (245/255), alpha: 1)
+            static let btmMargin: CGFloat = 20
             static let titleFont: UIFont = .systemFont(ofSize: 23, weight: .bold)
             static let descriptionFont: UIFont = .systemFont(ofSize: 15, weight: .regular)
             static let imageHeight: CGFloat = 200

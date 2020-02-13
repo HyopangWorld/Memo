@@ -6,4 +6,32 @@
 //  Copyright © 2020 김효원. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class MToolbar: UIToolbar {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initalize()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initalize() {
+        self.backgroundColor = Constants.UI.Base.toolbarColor
+        self.barTintColor = Constants.UI.Base.toolbarColor
+        buildLine()
+    }
+    
+    private func buildLine() {
+        let line = UIView()
+        line.backgroundColor = UIColor(displayP3Red: (223/255), green: (223/255), blue: (223/255), alpha: (223/255))
+        self.addSubview(line)
+        line.snp.makeConstraints {
+            $0.height.equalTo(Constants.UI.Base.lineHeight)
+            $0.trailing.leading.equalToSuperview()
+            $0.top.equalTo(self.snp.top)
+        }
+    }
+}

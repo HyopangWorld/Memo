@@ -11,6 +11,8 @@
 		4AF6CCCCFDD797B2542A42B4 /* Pods_Memo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3D867C81F97C80F0B4E8F8 /* Pods_Memo.framework */; };
 		769BC24E2DB0552399032D4A /* Pods_Memo_MemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEA157FFC459F0688F06DCD /* Pods_Memo_MemoUITests.framework */; };
 		DD2FC59123F4D24F00F8630C /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */; };
+		DD2FC59723F4EA0D00F8630C /* UIViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59623F4EA0D00F8630C /* UIViewController+UI.swift */; };
+		DD2FC59923F5092A00F8630C /* MToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59823F5092A00F8630C /* MToolbar.swift */; };
 		DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263923F1132100AA8078 /* IndexViewController.swift */; };
 		DD38263D23F1151700AA8078 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD38263C23F1151700AA8078 /* .swiftlint.yml */; };
 		DD38263F23F116B000AA8078 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263E23F116B000AA8078 /* Constants.swift */; };
@@ -62,6 +64,8 @@
 		C02F6776F1AF391C2A3ECB26 /* Pods_MemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D880A0CBFCD1BBA71F791A34 /* Pods-Memo-MemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memo-MemoUITests.release.xcconfig"; path = "Target Support Files/Pods-Memo-MemoUITests/Pods-Memo-MemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		DD2FC59623F4EA0D00F8630C /* UIViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UI.swift"; sourceTree = "<group>"; };
+		DD2FC59823F5092A00F8630C /* MToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MToolbar.swift; sourceTree = "<group>"; };
 		DD38263923F1132100AA8078 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		DD38263C23F1151700AA8078 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DD38263E23F116B000AA8078 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				DD63D29723F0F82B00BC10B6 /* ViewController.swift */,
+				DD2FC59823F5092A00F8630C /* MToolbar.swift */,
 			);
 			path = "Common Components";
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 			children = (
 				DDAE052023F398B300E1DB9C /* UITextView+UItils.swift */,
 				DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */,
+				DD2FC59623F4EA0D00F8630C /* UIViewController+UI.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -563,8 +569,10 @@
 				DDAE052123F398B300E1DB9C /* UITextView+UItils.swift in Sources */,
 				DDF014FD23F27C8700EAD537 /* UserDefaultsManager.swift in Sources */,
 				DD38264623F13CB500AA8078 /* IndexModel.swift in Sources */,
+				DD2FC59723F4EA0D00F8630C /* UIViewController+UI.swift in Sources */,
 				DDC925E623F0EEDB00068D03 /* SceneDelegate.swift in Sources */,
 				DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */,
+				DD2FC59923F5092A00F8630C /* MToolbar.swift in Sources */,
 				DDF014FA23F246F400EAD537 /* DetailViewController.swift in Sources */,
 				DDF0150423F27E0400EAD537 /* UserDefaultsManagerImpl.swift in Sources */,
 				DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */,

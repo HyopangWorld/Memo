@@ -16,6 +16,7 @@ import RxSwift
 
 class ViewController<ViewBindable>: UIViewController {
     var disposeBag = DisposeBag()
+    var viewModel: ViewBindable?
     let indicator = UIActivityIndicatorView()
 
     init() {
@@ -43,7 +44,7 @@ class ViewController<ViewBindable>: UIViewController {
      - Parameters:
      - viewModel: view에 bind 할 수 있는 `ViewBindable`, protocol로 작성해야함.
      */
-    func bind(_ viewModel: ViewBindable) {}
+    func bind(_ viewModel: ViewBindable) { }
 
     /*
      `UIViewController`의 다양한 레이아웃 속성을 정의

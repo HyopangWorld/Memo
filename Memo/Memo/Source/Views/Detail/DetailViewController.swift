@@ -15,8 +15,10 @@ import SnapKit
 import Then
 
 protocol DetailViewBindable {
-    var viewWillAppear: PublishRelay<Int> { get }
+    var viewDidLoad: PublishRelay<Int> { get }
+    var deleteData: PublishRelay<Int> { get }
     var memoData: Signal<Memo> { get }
+    var memoDeleted: Signal<[Memo]> { get }
 }
 
 final class DetailViewController: ViewController<DetailViewBindable> {
@@ -27,50 +29,69 @@ final class DetailViewController: ViewController<DetailViewBindable> {
     
     override func bind(_ viewModel: DetailViewBindable) {
         self.disposeBag = DisposeBag()
+        self.viewModel = viewModel
         
-        self.rx.viewWillAppear
-            .take(1)
+        self.rx.viewDidLoad
             .map { [weak self] _ in self?.id }
             .filterNil()
-            .bind(to: viewModel.viewWillAppear)
+            .bind(to: viewModel.viewDidLoad)
             .disposed(by: disposeBag)
         
         viewModel.memoData
             .emit(onNext: { [weak self] memo in
-                self?.buildMemoBoard(data: memo)
+                guard let btmView = self?.buildToolbar() else { return }
+                self?.buildMemoBoard(btmView: btmView, data: memo)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.memoDeleted
+            .emit(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
     }
     
     override func layout() {
         view.backgroundColor = .white
-        buildEditButton()
     }
 }
 
 extension DetailViewController {
-    private func buildEditButton() {
-        let eidtButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = eidtButton
-        eidtButton.rx.tap
+    private func buildToolbar() -> UIView {
+        let trashBtn = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+        let centerSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
+        trashBtn.rx.tap
+            .subscribe(onNext: { [weak self] id in
+                guard let id = self?.id else { return }
+                self?.viewModel?.deleteData.accept(id)
+            })
+            .disposed(by: disposeBag)
+        
+        editBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 let editViewController = EditViewController()
                 self?.navigationController?.pushViewController(editViewController, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        return buildBtmToolbar(items: [trashBtn, centerSpace, editBtn])
     }
     
-    private func buildMemoBoard(data: Memo) {
+    private func buildMemoBoard(btmView: UIView, data: Memo) {
         let titleView = buildTitleView(text: data.title)
         let descriptionView = buildDescriptionView(text: data.description, topView: titleView)
         let imageList = buildImageSlider(imageList: data.imageList ?? [], topView: descriptionView)
-        
-        let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.bottomMargin
+        let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.btmMargin
         scrollView.contentSize = CGSize(width: view.frame.width, height: contentsHeight)
+        scrollView.contentInset = UIEdgeInsets.init(top: self.getTopAreaHeight(), left: 0, bottom: 0, right: 0)
+        scrollView.setContentOffset(CGPoint(x: 0, y: -self.getTopAreaHeight()), animated: false)
+        
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints {
-            $0.leading.trailing.height.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview()
+            $0.bottom.equalTo(btmView.snp.top)
         }
     }
     
