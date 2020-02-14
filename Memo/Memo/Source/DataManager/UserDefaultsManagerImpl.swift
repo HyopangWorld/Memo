@@ -35,7 +35,6 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
         var list = Dictionary<String, Any>()
         if let data = UserDefaults.standard.dictionary(forKey: memoKey) { list = data }
         list.updateValue(parseMemoToList(memo: memo), forKey: "\(memo.id)")
-        print("\(list)")
         UserDefaults.standard.set(list, forKey: memoKey)
         UserDefaults.standard.synchronize()
         

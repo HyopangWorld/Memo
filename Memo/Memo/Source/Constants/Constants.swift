@@ -42,6 +42,15 @@ public struct Constants {
             static let imageHeight: CGFloat = 200
             static let imageMargin: CGFloat = 10
         }
+        
+        struct Edit {
+            static let elmtMargin: CGFloat = 10
+            static let titleFont: UIFont = Detail.titleFont
+            static let descriptionFont: UIFont = Detail.descriptionFont
+            static let layerColor: UIColor = UIColor(displayP3Red: (220/255), green: (220/255), blue: (220/255), alpha: 1)
+            static let imgSize: CGFloat = 120
+            static let sliderHeight: CGFloat = 150
+        }
     }
     
     struct Text {

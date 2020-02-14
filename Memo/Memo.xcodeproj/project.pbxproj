@@ -29,6 +29,7 @@
 		DDC925ED23F0EEDC00068D03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDC925EC23F0EEDC00068D03 /* Assets.xcassets */; };
 		DDC925FB23F0EEDD00068D03 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925FA23F0EEDD00068D03 /* MemoTests.swift */; };
 		DDC9260623F0EEDD00068D03 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC9260523F0EEDD00068D03 /* MemoUITests.swift */; };
+		DDDBB80D23F635130058C4B6 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDBB80C23F635130058C4B6 /* Enums.swift */; };
 		DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014F623F2447100EAD537 /* EditViewController.swift */; };
 		DDF014FA23F246F400EAD537 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014F923F246F400EAD537 /* DetailViewController.swift */; };
 		DDF014FD23F27C8700EAD537 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */; };
@@ -88,6 +89,7 @@
 		DDC9260123F0EEDD00068D03 /* MemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC9260523F0EEDD00068D03 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		DDC9260723F0EEDD00068D03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDDBB80C23F635130058C4B6 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		DDF014F623F2447100EAD537 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		DDF014F923F246F400EAD537 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				DD38263E23F116B000AA8078 /* Constants.swift */,
+				DDDBB80C23F635130058C4B6 /* Enums.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 			files = (
 				DDAE052523F3E80700E1DB9C /* DetailModel.swift in Sources */,
 				DD38263F23F116B000AA8078 /* Constants.swift in Sources */,
+				DDDBB80D23F635130058C4B6 /* Enums.swift in Sources */,
 				DD2FC59123F4D24F00F8630C /* UIViewController+Utils.swift in Sources */,
 				DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */,
 				DD38264223F1366A00AA8078 /* MemoListCell.swift in Sources */,
