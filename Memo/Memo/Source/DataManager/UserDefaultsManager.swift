@@ -13,4 +13,5 @@ protocol UserDefaultsManager {
     func getMemo(id: Int) -> Memo?
     func removeMemo(id: Int) -> [Memo]?
     func updateMemo(memo: Memo) -> [Memo]?
+    func createId() -> Int
 }

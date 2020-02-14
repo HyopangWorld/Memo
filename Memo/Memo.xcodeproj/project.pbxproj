@@ -30,6 +30,8 @@
 		DDC925FB23F0EEDD00068D03 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC925FA23F0EEDD00068D03 /* MemoTests.swift */; };
 		DDC9260623F0EEDD00068D03 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC9260523F0EEDD00068D03 /* MemoUITests.swift */; };
 		DDDBB80D23F635130058C4B6 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDBB80C23F635130058C4B6 /* Enums.swift */; };
+		DDDBB80F23F63DCE0058C4B6 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDBB80E23F63DCE0058C4B6 /* EditViewModel.swift */; };
+		DDDBB81123F63DD70058C4B6 /* EditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDBB81023F63DD70058C4B6 /* EditModel.swift */; };
 		DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014F623F2447100EAD537 /* EditViewController.swift */; };
 		DDF014FA23F246F400EAD537 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014F923F246F400EAD537 /* DetailViewController.swift */; };
 		DDF014FD23F27C8700EAD537 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */; };
@@ -90,6 +92,8 @@
 		DDC9260523F0EEDD00068D03 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		DDC9260723F0EEDD00068D03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDDBB80C23F635130058C4B6 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		DDDBB80E23F63DCE0058C4B6 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		DDDBB81023F63DD70058C4B6 /* EditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModel.swift; sourceTree = "<group>"; };
 		DDF014F623F2447100EAD537 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		DDF014F923F246F400EAD537 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -292,6 +296,8 @@
 			isa = PBXGroup;
 			children = (
 				DDF014F623F2447100EAD537 /* EditViewController.swift */,
+				DDDBB80E23F63DCE0058C4B6 /* EditViewModel.swift */,
+				DDDBB81023F63DD70058C4B6 /* EditModel.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -562,6 +568,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDDBB80F23F63DCE0058C4B6 /* EditViewModel.swift in Sources */,
 				DDAE052523F3E80700E1DB9C /* DetailModel.swift in Sources */,
 				DD38263F23F116B000AA8078 /* Constants.swift in Sources */,
 				DDDBB80D23F635130058C4B6 /* Enums.swift in Sources */,
@@ -582,6 +589,7 @@
 				DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */,
 				DDAE052323F3E7FD00E1DB9C /* DetailViewModel.swift in Sources */,
 				DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */,
+				DDDBB81123F63DD70058C4B6 /* EditModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

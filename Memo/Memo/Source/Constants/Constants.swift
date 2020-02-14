@@ -48,8 +48,7 @@ public struct Constants {
             static let titleFont: UIFont = Detail.titleFont
             static let descriptionFont: UIFont = Detail.descriptionFont
             static let layerColor: UIColor = UIColor(displayP3Red: (220/255), green: (220/255), blue: (220/255), alpha: 1)
-            static let imgSize: CGFloat = 120
-            static let sliderHeight: CGFloat = 150
+            static let imgSize: CGFloat = 150
         }
     }
     

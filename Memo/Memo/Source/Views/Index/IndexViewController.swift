@@ -31,6 +31,7 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     
     override func bind(_ viewModel: IndexViewBindable) {
         self.disposeBag = DisposeBag()
+        self.viewModel = viewModel
         
         self.rx.viewWillAppear
             .map{ _ in Void() }

@@ -40,7 +40,7 @@ final class DetailViewController: ViewController<DetailViewBindable> {
         viewModel.memoData
             .emit(onNext: { [weak self] memo in
                 guard let alert = self?.buildAlert() else { return }
-                guard let btmView = self?.buildToolbar(alert: alert) else { return }
+                guard let btmView = self?.buildToolbar(alert: alert, data: memo) else { return }
                 self?.buildMemoBoard(btmView: btmView, data: memo)
             })
             .disposed(by: disposeBag)
@@ -69,7 +69,7 @@ extension DetailViewController {
         return alert
     }
     
-    private func buildToolbar(alert: UIAlertController) -> UIView {
+    private func buildToolbar(alert: UIAlertController, data: Memo) -> UIView {
         let trashBtn = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
         let centerSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let editBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
@@ -82,6 +82,7 @@ extension DetailViewController {
         editBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 let editViewController = EditViewController()
+                editViewController.memo = data
                 self?.navigationController?.pushViewController(editViewController, animated: true)
             })
             .disposed(by: disposeBag)

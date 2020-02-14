@@ -40,6 +40,11 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
         
         return parseListToMemo(list: list)
     }
+    
+    func createId() -> Int {
+        guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return 1 }
+        return list.count + 1
+    }
 }
 
 extension UserDefaultsManagerImpl {
