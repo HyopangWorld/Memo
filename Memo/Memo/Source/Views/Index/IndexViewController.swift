@@ -17,7 +17,7 @@ import SnapKit
 
 protocol IndexViewBindable {
     var viewWillAppear: PublishRelay<Void> { get }
-    var deleteData: PublishRelay<Int> { get }
+    var deleteData: PublishRelay<String> { get }
     var cellData: Driver<[MemoListCell.Data]> { get }
     var reloadList: Signal<Void> { get }
 }
@@ -40,7 +40,7 @@ final class IndexViewController: ViewController<IndexViewBindable> {
         
         deleteCell
             .map { [weak self] indexPath in
-                (self?.tableView.cellForRow(at: indexPath) as! MemoListCell).id
+                (self?.tableView.cellForRow(at: indexPath) as! MemoListCell).date
             }
             .filterNil()
             .bind(to: viewModel.deleteData)
@@ -115,7 +115,7 @@ extension IndexViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? MemoListCell else { return }
         let detailViewController = DetailViewController()
         let detailViewModel = DetailViewModel()
-        detailViewController.id = cell.id
+        detailViewController.date = cell.date
         detailViewController.bind(detailViewModel)
         
         self.navigationController?.pushViewController(detailViewController, animated: true)

@@ -20,14 +20,22 @@ struct IndexModel {
         return userDefaultsManager.getMemoList()
     }
     
-    func deleteMemo(id: Int) -> [Memo]? {
-        return userDefaultsManager.removeMemo(id: id)
+    func deleteMemo(date: String) -> [Memo]? {
+        return userDefaultsManager.removeMemo(date: date)
     }
     
     func parseMemo(memoList: [Memo]) -> [MemoListCell.Data] {
-        return memoList.map { (id: $0.id,
+        return sortAsce(list: memoList).map { (date: $0.date,
                                thumbnail: $0.imageList?.first,
                                title: $0.title,
                                description: $0.description) }
+    }
+    
+    func sortDesc(list: [Memo]) -> [Memo] {
+        return list.sorted { $0.date < $1.date }
+    }
+    
+    func sortAsce(list: [Memo]) -> [Memo] {
+        return list.sorted { $0.date > $1.date }
     }
 }

@@ -34,7 +34,7 @@ final class EditViewController: ViewController<EditViewBindable> {
         self.viewModel = viewModel
         
         self.rx.viewDidLoad
-            .filter { self.memo?.id == nil }
+            .filter { self.memo?.date == nil }
             .bind(to: viewModel.createData)
             .disposed(by: disposeBag)
         
@@ -71,7 +71,6 @@ extension EditViewController {
         buildDescriptionView(text: data?.description ?? "", topView: titleView)
         buildImageSlider(list: data?.imageList ?? [], btmView: buildToolbar())
         
-        scrollView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         scrollView.setContentOffset(.zero, animated: false)
         scrollView.showsVerticalScrollIndicator = false
         

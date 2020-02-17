@@ -14,27 +14,36 @@ import Kingfisher
 import Then
 
 class MemoListCell: UITableViewCell {
-    typealias Data = (id: Int, thumbnail: String?, title: String, description: String)
+    typealias Data = (date: String, thumbnail: String?, title: String, description: String)
     typealias UI = Constants.UI.IndexCell
-
-    let thumbnailView = UIImageView()
+    
     let titleLabel = UILabel()
+    let timeLabel = UILabel()
     let descriptionLabel = UILabel()
-
-    var id: Int?
+    let thumbnailView = UIImageView()
+    
+    var date: String?
     
     override init(style: UITableViewCell.CellStyle = .default, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layout()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    override func prepareForReuse() {
+        titleLabel.text = nil
+        timeLabel.text = nil
+        descriptionLabel.text = nil
+        thumbnailView.image = nil
+    }
+    
     func setData(data: Data) {
-        id = data.id
+        date = data.date
+        timeLabel.text = "\(data.date.split(separator: " ").first ?? "")"
         titleLabel.text = data.title
         descriptionLabel.text = data.description
         if let url = data.thumbnail {
@@ -45,30 +54,39 @@ class MemoListCell: UITableViewCell {
     private func layout() {
         titleLabel.font = UI.titleFont
         self.addSubview(titleLabel)
+        
+        thumbnailView.contentMode = .scaleToFill
+        self.addSubview(thumbnailView)
+        thumbnailView.snp.updateConstraints {
+            $0.trailing.equalToSuperview().inset(UI.sideMargin)
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(UI.thumbSize)
+        }
+        
         titleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(UI.sideMargin)
             $0.top.equalToSuperview().inset(UI.titleTopMargin)
             $0.height.equalToSuperview().dividedBy(2)
-            $0.width.equalTo(self.frame.width - UI.thumbSize - UI.thumbLeftMargin - (UI.sideMargin * 2))
+            $0.trailing.equalTo(thumbnailView.snp.leading).inset(UI.sideMargin)
+        }
+        
+        timeLabel.font = UI.descriptFont
+        self.addSubview(timeLabel)
+        timeLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(UI.sideMargin)
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.bottom.equalToSuperview().inset(UI.descriptTopMargin)
+            $0.width.equalTo(UI.timeWidth)
         }
         
         descriptionLabel.font = UI.descriptFont
         descriptionLabel.textColor = UI.descriptColor
         self.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(UI.sideMargin)
+            $0.leading.equalTo(timeLabel.snp.trailing)
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.bottom.equalToSuperview().inset(UI.descriptTopMargin)
-            $0.width.equalTo(self.frame.width - UI.thumbSize - UI.thumbLeftMargin - (UI.sideMargin * 2))
-        }
-        
-        thumbnailView.contentMode = .scaleToFill
-        self.addSubview(thumbnailView)
-        thumbnailView.snp.updateConstraints {
-            $0.trailing.equalToSuperview().inset(UI.sideMargin)
-            $0.leading.equalTo(descriptionLabel.snp.trailing).offset(UI.thumbLeftMargin)
-            $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(UI.thumbSize)
+            $0.trailing.equalTo(thumbnailView.snp.leading).inset(-UI.sideMargin)
         }
     }
 }

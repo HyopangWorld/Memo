@@ -11,7 +11,7 @@ import RxCocoa
 
 struct IndexViewModel: IndexViewBindable {
     let viewWillAppear = PublishRelay<Void>()
-    let deleteData = PublishRelay<Int>()
+    let deleteData = PublishRelay<String>()
     let cellData: Driver<[MemoListCell.Data]>
     let reloadList: Signal<Void>
     

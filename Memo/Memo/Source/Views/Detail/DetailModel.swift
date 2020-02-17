@@ -15,11 +15,11 @@ struct DetailModel {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    func getMemo(id: Int) -> Memo? {
-        return userDefaultsManager.getMemo(id: id)
+    func getMemo(date: String) -> Memo? {
+        return userDefaultsManager.getMemo(date: date)
     }
     
-    func deleteMemo(id: Int) -> [Memo]? {
-        return userDefaultsManager.removeMemo(id: id)
+    func deleteMemo(date: String) -> [Memo]? {
+        return userDefaultsManager.removeMemo(date: date)
     }
 }

@@ -16,12 +16,11 @@ struct EditModel {
     }
     
     func saveMemo(memo: Memo) -> [Memo]? {
-        print("저장하기\(memo)")
         return userDefaultsManager.updateMemo(memo: memo)
     }
     
     func createMemo() -> Memo {
-        return Memo(id: userDefaultsManager.createId(),
+        return Memo(date: userDefaultsManager.getDate(),
                     title: "",
                     description: "",
                     imageList: [])

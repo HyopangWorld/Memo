@@ -16,8 +16,8 @@ import SnapKit
 import Then
 
 protocol DetailViewBindable {
-    var viewDidLoad: PublishRelay<Int> { get }
-    var deleteData: PublishRelay<Int> { get }
+    var viewDidLoad: PublishRelay<String> { get }
+    var deleteData: PublishRelay<String> { get }
     var memoData: Signal<Memo> { get }
     var memoDeleted: Signal<[Memo]> { get }
 }
@@ -26,14 +26,14 @@ final class DetailViewController: ViewController<DetailViewBindable> {
     typealias UI = Constants.UI.Detail
     
     let scrollView = UIScrollView()
-    var id: Int?
+    var date: String?
     
     override func bind(_ viewModel: DetailViewBindable) {
         self.disposeBag = DisposeBag()
         self.viewModel = viewModel
         
         self.rx.viewDidLoad
-            .map { [weak self] _ in self?.id }
+            .map { [weak self] _ in self?.date }
             .filterNil()
             .bind(to: viewModel.viewDidLoad)
             .disposed(by: disposeBag)
@@ -62,8 +62,8 @@ extension DetailViewController {
     private func buildAlert() -> UIAlertController {
         let alert = UIAlertController(title: "삭제하시겠습니까?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            guard let id = self?.id else { return }
-            self?.viewModel?.deleteData.accept(id)
+            guard let date = self?.date else { return }
+            self?.viewModel?.deleteData.accept(date)
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
@@ -100,16 +100,12 @@ extension DetailViewController {
         let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.btmMargin
         
         scrollView.contentSize = CGSize(width: view.frame.width, height: contentsHeight)
-        if #available(iOS 11.0, *) { }
-        else {
-            scrollView.contentInset = UIEdgeInsets.init(top: self.getTopAreaHeight(), left: 0, bottom: 0, right: 0)
-            scrollView.setContentOffset(CGPoint(x: 0, y: -self.getTopAreaHeight()), animated: false)
-        }
+        scrollView.setContentOffset(.zero, animated: false)
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(self.getTopAreaHeight())
             $0.bottom.equalTo(btmView.snp.top)
         }
     }

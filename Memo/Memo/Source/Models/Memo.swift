@@ -9,7 +9,7 @@
 import Foundation
 
 struct Memo {
-    let id: Int
+    let date: String
     var title, description: String
     var imageList: [String]?
 }

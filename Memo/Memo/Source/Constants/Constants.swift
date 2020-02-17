@@ -30,7 +30,7 @@ public struct Constants {
             static let descriptColor: UIColor = UIColor(displayP3Red: (180/255), green: (180/255), blue: (180/255), alpha: 1)
             static let descriptTopMargin: CGFloat = 5
             
-            static let thumbLeftMargin: CGFloat = 10
+            static let timeWidth: CGFloat = 90
             static let thumbSize: CGFloat = 55
         }
         

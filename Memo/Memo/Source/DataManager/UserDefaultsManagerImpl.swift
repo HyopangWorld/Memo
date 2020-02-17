@@ -10,7 +10,7 @@ import Foundation
 
 struct UserDefaultsManagerImpl: UserDefaultsManager {
     private let memoKey = "Memo"
-    private let dummyData = Memo(id: -1, title: "", description: "", imageList: [])
+    private let dummyData = Memo(date: "", title: "", description: "", imageList: [])
     
     func getMemoList() -> [Memo]? {
         guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
@@ -18,13 +18,13 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
         return parseListToMemo(list: list)
     }
     
-    func getMemo(id: Int) -> Memo? {
-        return getMemoList()?.filter { $0.id == id }.first
+    func getMemo(date: String) -> Memo? {
+        return getMemoList()?.filter { $0.date == date }.first
     }
     
-    func removeMemo(id: Int) -> [Memo]? {
+    func removeMemo(date: String) -> [Memo]? {
         guard var list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
-        list.removeValue(forKey: "\(id)")
+        list.removeValue(forKey: "\(date)")
         UserDefaults.standard.set(list, forKey: memoKey)
         UserDefaults.standard.synchronize()
         
@@ -34,16 +34,21 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
     func updateMemo(memo: Memo) -> [Memo]? {
         var list = Dictionary<String, Any>()
         if let data = UserDefaults.standard.dictionary(forKey: memoKey) { list = data }
-        list.updateValue(parseMemoToList(memo: memo), forKey: "\(memo.id)")
+        list.updateValue(parseMemoToList(memo: memo), forKey: "\(memo.date)")
         UserDefaults.standard.set(list, forKey: memoKey)
         UserDefaults.standard.synchronize()
         
         return parseListToMemo(list: list)
     }
     
-    func createId() -> Int {
-        guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return 1 }
-        return list.count + 1
+    func getDate() -> String {
+        let now = Date()
+        let date = DateFormatter()
+        date.locale = Locale(identifier: "ko_kr")
+        date.timeZone = TimeZone(abbreviation: "KST")
+        date.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        return date.string(from: now)
     }
 }
 
@@ -52,7 +57,7 @@ extension UserDefaultsManagerImpl {
         return list.values.map { dictionary -> Memo in
             guard let memo = dictionary as? Dictionary<String, Any> else { return dummyData }
             
-            return Memo(id: memo["id"] as? Int ?? -1,
+            return Memo(date: memo["date"] as? String ?? "",
                         title: memo["title"] as? String ?? "",
                         description: memo["description"] as? String ?? "",
                         imageList: memo["imageList"] as? [String] ?? [])
@@ -60,7 +65,7 @@ extension UserDefaultsManagerImpl {
     }
     
     private func parseMemoToList(memo: Memo) -> Dictionary<String, Any> {
-        return [ "id": memo.id,
+        return [ "date": memo.date,
                  "title": memo.title,
                  "description": memo.description,
                  "imageList": memo.imageList ?? [] ]
