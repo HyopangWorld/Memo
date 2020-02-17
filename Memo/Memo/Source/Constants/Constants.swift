@@ -49,6 +49,7 @@ public struct Constants {
             static let descriptionFont: UIFont = Detail.descriptionFont
             static let layerColor: UIColor = UIColor(displayP3Red: (220/255), green: (220/255), blue: (220/255), alpha: 1)
             static let imgSize: CGFloat = 150
+            static let delBtnSize: CGFloat = 30
         }
     }
     

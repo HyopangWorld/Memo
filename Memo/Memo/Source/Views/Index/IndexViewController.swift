@@ -92,6 +92,8 @@ extension IndexViewController {
         editBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 let editViewController = EditViewController()
+                let editViewModel = EditViewModel()
+                editViewController.bind(editViewModel)
                 self?.navigationController?.pushViewController(editViewController, animated: true)
             })
             .disposed(by: disposeBag)

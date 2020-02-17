@@ -10,6 +10,6 @@ import Foundation
 
 struct Memo {
     let id: Int
-    let title, description: String
-    let imageList: [String]?
+    var title, description: String
+    var imageList: [String]?
 }

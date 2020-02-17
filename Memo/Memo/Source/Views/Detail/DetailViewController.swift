@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxAppState
+import RxGesture
 import Kingfisher
 import SnapKit
 import Then
@@ -82,7 +83,9 @@ extension DetailViewController {
         editBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 let editViewController = EditViewController()
+                let editViewModel = EditViewModel()
                 editViewController.memo = data
+                editViewController.bind(editViewModel)
                 self?.navigationController?.pushViewController(editViewController, animated: true)
             })
             .disposed(by: disposeBag)
@@ -97,8 +100,11 @@ extension DetailViewController {
         let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.btmMargin
         
         scrollView.contentSize = CGSize(width: view.frame.width, height: contentsHeight)
-        scrollView.contentInset = UIEdgeInsets.init(top: self.getTopAreaHeight(), left: 0, bottom: 0, right: 0)
-        scrollView.setContentOffset(CGPoint(x: 0, y: -self.getTopAreaHeight()), animated: false)
+        if #available(iOS 11.0, *) { }
+        else {
+            scrollView.contentInset = UIEdgeInsets.init(top: self.getTopAreaHeight(), left: 0, bottom: 0, right: 0)
+            scrollView.setContentOffset(CGPoint(x: 0, y: -self.getTopAreaHeight()), animated: false)
+        }
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints {

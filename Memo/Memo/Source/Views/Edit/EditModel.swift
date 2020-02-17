@@ -16,6 +16,7 @@ struct EditModel {
     }
     
     func saveMemo(memo: Memo) -> [Memo]? {
+        print("저장하기\(memo)")
         return userDefaultsManager.updateMemo(memo: memo)
     }
     

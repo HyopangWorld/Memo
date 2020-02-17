@@ -10,19 +10,19 @@ import RxSwift
 import RxCocoa
 
 struct EditViewModel: EditViewBindable {
-    let createMemo = PublishRelay<Void>()
+    let createData = PublishRelay<Void>()
     let saveData = PublishRelay<Memo>()
     let newMemo: Signal<Memo>
-    let memoData: Signal<[Memo]>
+    let saveMemo: Signal<[Memo]>
     
     init(model: EditModel = EditModel()) {
-        memoData = saveData
-            .map(model.saveMemo(memo:))
-            .filterNil()
+        newMemo = createData
+            .map{ _ in model.createMemo()}
             .asSignal(onErrorSignalWith: .empty())
         
-        newMemo = createMemo
-            .map{ _ in model.createMemo()}
+        saveMemo = saveData
+            .map(model.saveMemo(memo:))
+            .filterNil()
             .asSignal(onErrorSignalWith: .empty())
     }
 }
