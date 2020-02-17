@@ -16,8 +16,8 @@ import SnapKit
 import Then
 
 protocol DetailViewBindable {
-    var viewDidLoad: PublishRelay<String> { get }
-    var deleteData: PublishRelay<String> { get }
+    var viewDidLoad: PublishRelay<Date> { get }
+    var deleteData: PublishRelay<Date> { get }
     var memoData: Signal<Memo> { get }
     var memoDeleted: Signal<[Memo]> { get }
 }
@@ -26,7 +26,7 @@ final class DetailViewController: ViewController<DetailViewBindable> {
     typealias UI = Constants.UI.Detail
     
     let scrollView = UIScrollView()
-    var date: String?
+    var date: Date?
     
     override func bind(_ viewModel: DetailViewBindable) {
         self.disposeBag = DisposeBag()

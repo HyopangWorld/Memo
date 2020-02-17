@@ -20,7 +20,7 @@ struct IndexModel {
         return userDefaultsManager.getMemoList()
     }
     
-    func deleteMemo(date: String) -> [Memo]? {
+    func deleteMemo(date: Date) -> [Memo]? {
         return userDefaultsManager.removeMemo(date: date)
     }
     
@@ -31,11 +31,11 @@ struct IndexModel {
                                description: $0.description) }
     }
     
-    func sortDesc(list: [Memo]) -> [Memo] {
+    private func sortDesc(list: [Memo]) -> [Memo] {
         return list.sorted { $0.date < $1.date }
     }
     
-    func sortAsce(list: [Memo]) -> [Memo] {
+    private func sortAsce(list: [Memo]) -> [Memo] {
         return list.sorted { $0.date > $1.date }
     }
 }

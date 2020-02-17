@@ -14,7 +14,7 @@ import Kingfisher
 import Then
 
 class MemoListCell: UITableViewCell {
-    typealias Data = (date: String, thumbnail: String?, title: String, description: String)
+    typealias Data = (date: Date, thumbnail: String?, title: String, description: String)
     typealias UI = Constants.UI.IndexCell
     
     let titleLabel = UILabel()
@@ -22,7 +22,7 @@ class MemoListCell: UITableViewCell {
     let descriptionLabel = UILabel()
     let thumbnailView = UIImageView()
     
-    var date: String?
+    var date: Date?
     
     override init(style: UITableViewCell.CellStyle = .default, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,12 +43,24 @@ class MemoListCell: UITableViewCell {
     
     func setData(data: Data) {
         date = data.date
-        timeLabel.text = "\(data.date.split(separator: " ").first ?? "")"
+        timeLabel.text = parseDayOrTime(data.date)
         titleLabel.text = data.title
         descriptionLabel.text = data.description
         if let url = data.thumbnail {
             thumbnailView.kf.setImage(with: URL(string: url), placeholder: UIImage(named: "placeholder"))
         }
+    }
+    
+    private func parseDayOrTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.dateFormat = "yyyy.MM.dd"
+        if formatter.string(from: date) == formatter.string(from: Date()) {
+            formatter.dateFormat = "a HH:mm"
+        }
+        
+        return formatter.string(from: date)
     }
     
     private func layout() {

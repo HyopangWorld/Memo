@@ -10,7 +10,8 @@ import Foundation
 
 struct UserDefaultsManagerImpl: UserDefaultsManager {
     private let memoKey = "Memo"
-    private let dummyData = Memo(date: "", title: "", description: "", imageList: [])
+    private let dummyData = Memo(date: Date(), title: "", description: "", imageList: [])
+
     
     func getMemoList() -> [Memo]? {
         guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
@@ -18,11 +19,11 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
         return parseListToMemo(list: list)
     }
     
-    func getMemo(date: String) -> Memo? {
+    func getMemo(date: Date) -> Memo? {
         return getMemoList()?.filter { $0.date == date }.first
     }
     
-    func removeMemo(date: String) -> [Memo]? {
+    func removeMemo(date: Date) -> [Memo]? {
         guard var list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
         list.removeValue(forKey: "\(date)")
         UserDefaults.standard.set(list, forKey: memoKey)
@@ -41,14 +42,8 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
         return parseListToMemo(list: list)
     }
     
-    func getDate() -> String {
-        let now = Date()
-        let date = DateFormatter()
-        date.locale = Locale(identifier: "ko_kr")
-        date.timeZone = TimeZone(abbreviation: "KST")
-        date.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        return date.string(from: now)
+    func getDate() -> Date {
+        return Date()
     }
 }
 
@@ -57,7 +52,7 @@ extension UserDefaultsManagerImpl {
         return list.values.map { dictionary -> Memo in
             guard let memo = dictionary as? Dictionary<String, Any> else { return dummyData }
             
-            return Memo(date: memo["date"] as? String ?? "",
+            return Memo(date: memo["date"] as? Date ?? Date(),
                         title: memo["title"] as? String ?? "",
                         description: memo["description"] as? String ?? "",
                         imageList: memo["imageList"] as? [String] ?? [])

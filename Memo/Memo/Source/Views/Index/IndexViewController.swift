@@ -17,7 +17,7 @@ import SnapKit
 
 protocol IndexViewBindable {
     var viewWillAppear: PublishRelay<Void> { get }
-    var deleteData: PublishRelay<String> { get }
+    var deleteData: PublishRelay<Date> { get }
     var cellData: Driver<[MemoListCell.Data]> { get }
     var reloadList: Signal<Void> { get }
 }

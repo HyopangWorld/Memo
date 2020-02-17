@@ -10,8 +10,8 @@ import RxSwift
 import RxCocoa
 
 struct DetailViewModel: DetailViewBindable {
-    let viewDidLoad = PublishRelay<String>()
-    let deleteData = PublishRelay<String>()
+    let viewDidLoad = PublishRelay<Date>()
+    let deleteData = PublishRelay<Date>()
     let memoData: Signal<Memo>
     let memoDeleted: Signal<[Memo]>
     

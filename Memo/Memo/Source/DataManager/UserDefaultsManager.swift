@@ -10,8 +10,8 @@ import Foundation
 
 protocol UserDefaultsManager {
     func getMemoList() -> [Memo]?
-    func getMemo(date: String) -> Memo?
-    func removeMemo(date: String) -> [Memo]?
+    func getMemo(date: Date) -> Memo?
+    func removeMemo(date: Date) -> [Memo]?
     func updateMemo(memo: Memo) -> [Memo]?
-    func getDate() -> String
+    func getDate() -> Date
 }
