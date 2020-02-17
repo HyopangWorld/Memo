@@ -13,6 +13,9 @@
 		DD2FC59123F4D24F00F8630C /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */; };
 		DD2FC59723F4EA0D00F8630C /* UIViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59623F4EA0D00F8630C /* UIViewController+UI.swift */; };
 		DD2FC59923F5092A00F8630C /* MToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2FC59823F5092A00F8630C /* MToolbar.swift */; };
+		DD37437F23FA7EC8009D032D /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD37437E23FA7EC8009D032D /* ImageManager.swift */; };
+		DD37438123FA7EDC009D032D /* ImageManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD37438023FA7EDC009D032D /* ImageManagerImpl.swift */; };
+		DD37438323FA849F009D032D /* EditViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD37438223FA849F009D032D /* EditViewController+UI.swift */; };
 		DD38263A23F1132100AA8078 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263923F1132100AA8078 /* IndexViewController.swift */; };
 		DD38263D23F1151700AA8078 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD38263C23F1151700AA8078 /* .swiftlint.yml */; };
 		DD38263F23F116B000AA8078 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38263E23F116B000AA8078 /* Constants.swift */; };
@@ -69,6 +72,9 @@
 		DD2FC59023F4D24F00F8630C /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		DD2FC59623F4EA0D00F8630C /* UIViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UI.swift"; sourceTree = "<group>"; };
 		DD2FC59823F5092A00F8630C /* MToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MToolbar.swift; sourceTree = "<group>"; };
+		DD37437E23FA7EC8009D032D /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		DD37438023FA7EDC009D032D /* ImageManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerImpl.swift; sourceTree = "<group>"; };
+		DD37438223FA849F009D032D /* EditViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditViewController+UI.swift"; sourceTree = "<group>"; };
 		DD38263923F1132100AA8078 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		DD38263C23F1151700AA8078 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DD38263E23F116B000AA8078 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -296,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				DDF014F623F2447100EAD537 /* EditViewController.swift */,
+				DD37438223FA849F009D032D /* EditViewController+UI.swift */,
 				DDDBB80E23F63DCE0058C4B6 /* EditViewModel.swift */,
 				DDDBB81023F63DD70058C4B6 /* EditModel.swift */,
 			);
@@ -317,6 +324,8 @@
 			children = (
 				DDF014FC23F27C8700EAD537 /* UserDefaultsManager.swift */,
 				DDF0150323F27E0400EAD537 /* UserDefaultsManagerImpl.swift */,
+				DD37437E23FA7EC8009D032D /* ImageManager.swift */,
+				DD37438023FA7EDC009D032D /* ImageManagerImpl.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -569,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDDBB80F23F63DCE0058C4B6 /* EditViewModel.swift in Sources */,
+				DD37438123FA7EDC009D032D /* ImageManagerImpl.swift in Sources */,
 				DDAE052523F3E80700E1DB9C /* DetailModel.swift in Sources */,
 				DD38263F23F116B000AA8078 /* Constants.swift in Sources */,
 				DDDBB80D23F635130058C4B6 /* Enums.swift in Sources */,
@@ -576,6 +586,7 @@
 				DD63D29823F0F82B00BC10B6 /* ViewController.swift in Sources */,
 				DD38264223F1366A00AA8078 /* MemoListCell.swift in Sources */,
 				DDF0150223F27CDE00EAD537 /* Memo.swift in Sources */,
+				DD37437F23FA7EC8009D032D /* ImageManager.swift in Sources */,
 				DDC925E423F0EEDB00068D03 /* AppDelegate.swift in Sources */,
 				DDAE052123F398B300E1DB9C /* UITextView+UItils.swift in Sources */,
 				DDF014FD23F27C8700EAD537 /* UserDefaultsManager.swift in Sources */,
@@ -589,6 +600,7 @@
 				DD38264423F13CAA00AA8078 /* IndexViewModel.swift in Sources */,
 				DDAE052323F3E7FD00E1DB9C /* DetailViewModel.swift in Sources */,
 				DDF014F723F2447100EAD537 /* EditViewController.swift in Sources */,
+				DD37438323FA849F009D032D /* EditViewController+UI.swift in Sources */,
 				DDDBB81123F63DD70058C4B6 /* EditModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

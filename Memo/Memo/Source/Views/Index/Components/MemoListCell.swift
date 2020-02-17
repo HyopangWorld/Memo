@@ -14,7 +14,7 @@ import Kingfisher
 import Then
 
 class MemoListCell: UITableViewCell {
-    typealias Data = (date: Date, thumbnail: String?, title: String, description: String)
+    typealias CellData = (date: Date, thumbnail: String?, title: String, description: String)
     typealias UI = Constants.UI.IndexCell
     
     let titleLabel = UILabel()
@@ -41,13 +41,17 @@ class MemoListCell: UITableViewCell {
         thumbnailView.image = nil
     }
     
-    func setData(data: Data) {
+    func setData(data: CellData) {
         date = data.date
         timeLabel.text = parseDayOrTime(data.date)
         titleLabel.text = data.title
         descriptionLabel.text = data.description
-        if let url = data.thumbnail {
-            thumbnailView.kf.setImage(with: URL(string: url), placeholder: UIImage(named: "placeholder"))
+        if let thumbnail = data.thumbnail {
+            if let image = ImageManagerImpl.shard.loadImage(fileName: thumbnail) {
+                thumbnailView.image = image
+                return
+            }
+            thumbnailView.kf.setImage(with: URL(string: thumbnail), placeholder: UIImage(named: "placeholder"))
         }
     }
     
@@ -57,7 +61,7 @@ class MemoListCell: UITableViewCell {
         formatter.timeZone = TimeZone(abbreviation: "KST")
         formatter.dateFormat = "yyyy.MM.dd"
         if formatter.string(from: date) == formatter.string(from: Date()) {
-            formatter.dateFormat = "a HH:mm"
+            formatter.dateFormat = "a hh:mm"
         }
         
         return formatter.string(from: date)

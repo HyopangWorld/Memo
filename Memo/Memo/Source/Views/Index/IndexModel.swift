@@ -24,7 +24,7 @@ struct IndexModel {
         return userDefaultsManager.removeMemo(date: date)
     }
     
-    func parseMemo(memoList: [Memo]) -> [MemoListCell.Data] {
+    func parseMemo(memoList: [Memo]) -> [MemoListCell.CellData] {
         return sortAsce(list: memoList).map { (date: $0.date,
                                thumbnail: $0.imageList?.first,
                                title: $0.title,
