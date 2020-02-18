@@ -42,11 +42,11 @@ final class EditViewController: ViewController<EditViewBindable> {
             .disposed(by: disposeBag)
         
         viewModel.newMemo.asObservable()
-            .subscribe(onNext: { [weak self] data in self?.memo = data})
+            .subscribe(onNext: { [weak self] data in self?.memo = data })
             .disposed(by: disposeBag)
         
         viewModel.saveMemo.asObservable()
-            .subscribe(onNext: { [weak self] _ in self?.navigationController?.popToRootViewController(animated: true)})
+            .subscribe(onNext: { [weak self] _ in self?.navigationController?.popToRootViewController(animated: true) })
             .disposed(by: disposeBag)
     }
     
@@ -57,9 +57,11 @@ final class EditViewController: ViewController<EditViewBindable> {
     }
     
     override func layout() {
-        view.backgroundColor = Constants.UI.Base.backgroundColor
         navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
         navigationController?.navigationBar.tintColor = Constants.UI.Base.foregroundColor
+        
+        view.backgroundColor = Constants.UI.Base.backgroundColor
+        self.setTouchEndEditing(disposeBag: disposeBag)
         
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = doneBtn

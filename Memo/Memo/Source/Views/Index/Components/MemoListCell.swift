@@ -73,7 +73,7 @@ class MemoListCell: UITableViewCell {
         titleLabel.font = UI.titleFont
         self.addSubview(titleLabel)
         
-        thumbnailView.contentMode = .scaleToFill
+        thumbnailView.contentMode = .scaleAspectFit
         self.addSubview(thumbnailView)
         thumbnailView.snp.updateConstraints {
             $0.trailing.equalToSuperview().inset(UI.sideMargin)

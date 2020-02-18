@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension UIViewController {
     func getTopAreaHeight() -> CGFloat {
@@ -15,5 +17,11 @@ extension UIViewController {
         else { height += UIApplication.shared.statusBarFrame.size.height }
         
         return height
+    }
+    
+    func setTouchEndEditing(disposeBag: DisposeBag) {
+        view.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in self?.view.endEditing(true) })
+            .disposed(by: disposeBag)
     }
 }
