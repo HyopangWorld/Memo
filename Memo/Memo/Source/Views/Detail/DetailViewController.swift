@@ -54,11 +54,90 @@ final class DetailViewController: ViewController<DetailViewBindable> {
     }
     
     override func layout() {
-        view.backgroundColor = .white
+        view.backgroundColor = Constants.UI.Base.backgroundColor
+        navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
+        navigationController?.navigationBar.tintColor = Constants.UI.Base.foregroundColor
     }
 }
 
 extension DetailViewController {
+    private func buildMemoBoard(btmView: UIView, data: Memo) {
+        let titleView = buildTitleView(text: data.title)
+        let descriptionView = buildDescriptionView(text: data.description, topView: titleView)
+        let imageList = buildImageSlider(imageList: data.imageList ?? [], topView: descriptionView)
+        let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.btmMargin
+        
+        scrollView.do {
+            $0.contentSize = CGSize(width: view.frame.width, height: contentsHeight)
+            $0.setContentOffset(.zero, animated: false)
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
+            $0.showsVerticalScrollIndicator = false
+        }
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(self.getTopAreaHeight())
+            $0.bottom.equalTo(btmView.snp.top)
+        }
+    }
+    
+    private func buildTitleView(text: String) -> UITextView {
+        let titleView = UITextView()
+        titleView.do {
+            $0.font = UI.titleFont
+            $0.text = text
+            $0.isEditable = false
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
+            $0.setAutoHeight(disposeBag: disposeBag)
+        }
+        scrollView.addSubview(titleView)
+        titleView.snp.makeConstraints {
+            $0.leading.top.width.equalToSuperview()
+        }
+        
+        return titleView
+    }
+    
+    private func buildDescriptionView(text: String, topView: UIView) -> UITextView {
+        let descriptionView = UITextView()
+        descriptionView.do {
+            $0.font = UI.descriptionFont
+            $0.text = text
+            $0.isEditable = false
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
+            $0.setAutoHeight(disposeBag: disposeBag)
+        }
+        scrollView.addSubview(descriptionView)
+        descriptionView.snp.makeConstraints {
+            $0.top.equalTo(topView.snp.bottom)
+            $0.leading.width.equalToSuperview()
+        }
+        
+        return descriptionView
+    }
+    
+    private func buildImageSlider(imageList: [String], topView: UIView) -> [UIImageView]{
+        var imageViewList: [UIImageView] = []
+        
+        for i in 0..<imageList.count {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFit
+            if let image = ImageManagerImpl.shard.loadImage(fileName: imageList[i]) { imageView.image = image }
+            else { imageView.kf.setImage(with: URL(string: imageList[i]), placeholder: UIImage(named: "placeholder")) }
+            
+            scrollView.addSubview(imageView)
+            imageView.snp.makeConstraints {
+                $0.top.equalTo(topView.snp.bottom).offset(UI.imageHeight * CGFloat(i) + UI.imageMargin * CGFloat(i+1))
+                $0.height.equalTo(UI.imageHeight)
+                $0.leading.width.equalToSuperview().inset(UI.imageMargin)
+            }
+            
+            imageViewList.append(imageView)
+        }
+        
+        return imageViewList
+    }
+    
     private func buildAlert() -> UIAlertController {
         let alert = UIAlertController(title: "삭제하시겠습니까?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default) { [weak self] _ in
@@ -91,77 +170,5 @@ extension DetailViewController {
             .disposed(by: disposeBag)
         
         return buildBtmToolbar(items: [trashBtn, centerSpace, editBtn])
-    }
-    
-    private func buildMemoBoard(btmView: UIView, data: Memo) {
-        let titleView = buildTitleView(text: data.title)
-        let descriptionView = buildDescriptionView(text: data.description, topView: titleView)
-        let imageList = buildImageSlider(imageList: data.imageList ?? [], topView: descriptionView)
-        let contentsHeight = titleView.getEstimatedSize().height + descriptionView.getEstimatedSize().height + (UI.imageHeight + UI.imageMargin) * CGFloat(imageList.count) + UI.btmMargin
-        
-        scrollView.contentSize = CGSize(width: view.frame.width, height: contentsHeight)
-        scrollView.setContentOffset(.zero, animated: false)
-        
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview().offset(self.getTopAreaHeight())
-            $0.bottom.equalTo(btmView.snp.top)
-        }
-    }
-    
-    private func buildTitleView(text: String) -> UITextView {
-        let titleView = UITextView()
-        titleView.do {
-            $0.font = UI.titleFont
-            $0.text = text
-            $0.isEditable = false
-            $0.setAutoHeight(disposeBag: disposeBag)
-        }
-        scrollView.addSubview(titleView)
-        titleView.snp.makeConstraints {
-            $0.leading.top.width.equalToSuperview()
-        }
-        
-        return titleView
-    }
-    
-    private func buildDescriptionView(text: String, topView: UIView) -> UITextView {
-        let descriptionView = UITextView()
-        descriptionView.do {
-            $0.font = UI.descriptionFont
-            $0.text = text
-            $0.isEditable = false
-            $0.setAutoHeight(disposeBag: disposeBag)
-        }
-        scrollView.addSubview(descriptionView)
-        descriptionView.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom)
-            $0.leading.width.equalToSuperview()
-        }
-        
-        return descriptionView
-    }
-    
-    private func buildImageSlider(imageList: [String], topView: UIView) -> [UIImageView]{
-        var imageViewList: [UIImageView] = []
-        
-        for i in 0..<imageList.count {
-            let imageView = UIImageView()
-            imageView.contentMode = .scaleAspectFit
-            if let image = ImageManagerImpl.shard.loadImage(fileName: imageList[i]) { imageView.image = image }
-            else { imageView.kf.setImage(with: URL(string: imageList[i]), placeholder: UIImage(named: "placeholder")) }
-            
-            scrollView.addSubview(imageView)
-            imageView.snp.makeConstraints {
-                $0.top.equalTo(topView.snp.bottom).offset(UI.imageHeight * CGFloat(i) + UI.imageMargin * CGFloat(i+1))
-                $0.height.equalTo(UI.imageHeight)
-                $0.leading.width.equalToSuperview().inset(UI.imageMargin)
-            }
-            
-            imageViewList.append(imageView)
-        }
-        
-        return imageViewList
     }
 }

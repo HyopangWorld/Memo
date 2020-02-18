@@ -57,7 +57,9 @@ final class EditViewController: ViewController<EditViewBindable> {
     }
     
     override func layout() {
-        view.backgroundColor = .white
+        view.backgroundColor = Constants.UI.Base.backgroundColor
+        navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
+        navigationController?.navigationBar.tintColor = Constants.UI.Base.foregroundColor
         
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = doneBtn

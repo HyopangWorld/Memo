@@ -20,9 +20,11 @@ extension EditViewController {
         buildToolbar()
         buildImageSlider(list: data?.imageList ?? [])
         
-        scrollView.setContentOffset(.zero, animated: false)
-        scrollView.showsVerticalScrollIndicator = false
-        
+        scrollView.do {
+            $0.setContentOffset(.zero, animated: false)
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
+            $0.showsVerticalScrollIndicator = false
+        }
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
@@ -45,6 +47,7 @@ extension EditViewController {
             $0.setAutoHeight(disposeBag: disposeBag)
             $0.layer.borderColor = UI.layerColor.cgColor
             $0.layer.borderWidth = 1
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
         }
         scrollView.addSubview(titleView)
         titleView.snp.makeConstraints {
@@ -60,6 +63,7 @@ extension EditViewController {
             $0.setAutoHeight(disposeBag: disposeBag)
             $0.layer.borderColor = UI.layerColor.cgColor
             $0.layer.borderWidth = 1
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
         }
         scrollView.addSubview(descriptionView)
         descriptionView.snp.makeConstraints {
@@ -86,7 +90,7 @@ extension EditViewController {
         }
         view.addSubview(sliderView)
         var bottom = Constants.UI.Base.toolBarHeight
-        if #available(iOS 11.0, *) { bottom += Constants.UI.Base.safeAreaInsetsTop }
+        if #available(iOS 11.0, *) { bottom += Constants.UI.Base.safeAreaInsetsTop >= 44 ? Constants.UI.Base.safeAreaInsetsTop : 0 }
         sliderView.snp.makeConstraints {
             $0.leading.width.equalToSuperview()
             $0.height.equalTo(UI.imgSize)
@@ -163,12 +167,7 @@ extension EditViewController {
             })
             .disposed(by: disposeBag)
         
-        let toolbar = buildBtmToolbar(items: [leftSpace, cameraBtn])
-        view.addSubview(toolbar)
-        toolbar.snp.makeConstraints {
-            $0.leading.width.bottom.equalToSuperview()
-            $0.height.equalTo(Constants.UI.Base.toolBarHeight)
-        }
+        _ = buildBtmToolbar(items: [leftSpace, cameraBtn])
     }
     
     private func buildActionSheet() -> UIAlertController {

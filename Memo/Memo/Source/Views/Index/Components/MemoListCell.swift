@@ -68,6 +68,8 @@ class MemoListCell: UITableViewCell {
     }
     
     private func layout() {
+        self.backgroundColor = Constants.UI.Base.backgroundColor
+        
         titleLabel.font = UI.titleFont
         self.addSubview(titleLabel)
         

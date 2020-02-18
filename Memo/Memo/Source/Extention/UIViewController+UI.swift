@@ -15,7 +15,7 @@ extension UIViewController {
         
         view.addSubview(toolBar)
         var bottom: CGFloat = 0
-        if #available(iOS 11.0, *) { bottom = Constants.UI.Base.safeAreaInsetsTop }
+        if #available(iOS 11.0, *) { bottom = Constants.UI.Base.safeAreaInsetsTop >= 44 ? Constants.UI.Base.safeAreaInsetsTop : 0 }
         toolBar.snp.makeConstraints {
             $0.trailing.leading.equalToSuperview()
             $0.bottom.equalToSuperview().inset(bottom)

@@ -60,7 +60,8 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     }
     
     override func layout() {
-        view.backgroundColor = Constants.UI.Base.toolbarColor
+        view.backgroundColor = Constants.UI.Base.backgroundColor
+        navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
         navigationItem.title = TEXT.title
         
         buildMemoList(btmView: buildToolbar())
@@ -71,7 +72,7 @@ extension IndexViewController {
     private func buildMemoList(btmView: UIView) {
         tableView.do {
             $0.register(MemoListCell.self, forCellReuseIdentifier: String(describing: MemoListCell.self))
-            $0.backgroundColor = .white
+            $0.backgroundColor = Constants.UI.Base.backgroundColor
             $0.separatorInset.left = Constants.UI.IndexCell.sideMargin
             $0.separatorInset.right = Constants.UI.IndexCell.sideMargin
             $0.rowHeight = Constants.UI.IndexCell.height

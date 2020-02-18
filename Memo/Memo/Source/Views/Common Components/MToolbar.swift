@@ -19,8 +19,9 @@ class MToolbar: UIToolbar {
     }
     
     private func initalize() {
-        self.backgroundColor = Constants.UI.Base.toolbarColor
-        self.barTintColor = Constants.UI.Base.toolbarColor
+        self.backgroundColor = Constants.UI.Base.backgroundColor
+        self.barTintColor = Constants.UI.Base.backgroundColor
+        self.tintColor = Constants.UI.Base.foregroundColor
         buildLine()
     }
     
