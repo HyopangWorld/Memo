@@ -45,8 +45,6 @@ final class IndexViewController: ViewController<IndexViewBindable> {
         viewModel.reloadList
             .emit(onNext: { [weak self] _ in self?.tableView.reloadData() })
             .disposed(by: disposeBag)
-        
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     
     override func layout() {
