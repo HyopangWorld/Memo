@@ -23,12 +23,14 @@ protocol EditViewBindable {
 
 final class EditViewController: ViewController<EditViewBindable> {
     typealias UI = Constants.UI.Edit
+    typealias TEXT = Constants.Text.Edit
     
-    let imagePicker = UIImagePickerController()
     let scrollView = UIScrollView()
     let sliderView = UIScrollView()
     let descriptionView = UITextView()
     let titleView = UITextView()
+    
+    let imagePicker = UIImagePickerController()
     
     var memo: Memo?
     
@@ -57,14 +59,14 @@ final class EditViewController: ViewController<EditViewBindable> {
     }
     
     override func layout() {
-        navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
-        navigationController?.navigationBar.tintColor = Constants.UI.Base.foregroundColor
-        
         view.backgroundColor = Constants.UI.Base.backgroundColor
         self.setTouchEndEditing(disposeBag: disposeBag)
         
+        navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
+        navigationController?.navigationBar.tintColor = Constants.UI.Base.foregroundColor
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = doneBtn
+        
         doneBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.memo?.title = self?.titleView.text ?? ""
@@ -83,7 +85,7 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
 
         if let fileName = ImageManagerImpl.shard.saveImage(image: image) {
             self.memo?.imageList?.append(fileName)
-            self.reloadImageSlider()
+            self.buildImages(list: self.memo?.imageList ?? [])
         }
 
         self.dismiss(animated: true, completion: nil)

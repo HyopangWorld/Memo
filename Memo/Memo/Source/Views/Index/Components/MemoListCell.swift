@@ -46,32 +46,15 @@ class MemoListCell: UITableViewCell {
         timeLabel.text = parseDayOrTime(data.date)
         titleLabel.text = data.title
         descriptionLabel.text = data.description
-        if let thumbnail = data.thumbnail {
-            if let image = ImageManagerImpl.shard.loadImage(fileName: thumbnail) {
-                thumbnailView.image = image
-                return
-            }
-            thumbnailView.kf.setImage(with: URL(string: thumbnail), placeholder: UIImage(named: "placeholder"))
-        }
-    }
-    
-    private func parseDayOrTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_kr")
-        formatter.timeZone = TimeZone(abbreviation: "KST")
-        formatter.dateFormat = "yyyy.MM.dd"
-        if formatter.string(from: date) == formatter.string(from: Date()) {
-            formatter.dateFormat = "a hh:mm"
-        }
         
-        return formatter.string(from: date)
+        if let thumbnail = data.thumbnail {
+            if let image = ImageManagerImpl.shard.loadImage(fileName: thumbnail) { thumbnailView.image = image }
+            else { thumbnailView.kf.setImage(with: URL(string: thumbnail), placeholder: UIImage(named: "placeholder")) }
+        }
     }
     
     private func layout() {
         self.backgroundColor = Constants.UI.Base.backgroundColor
-        
-        titleLabel.font = UI.titleFont
-        self.addSubview(titleLabel)
         
         thumbnailView.contentMode = .scaleAspectFit
         self.addSubview(thumbnailView)
@@ -81,6 +64,8 @@ class MemoListCell: UITableViewCell {
             $0.width.height.equalTo(UI.thumbSize)
         }
         
+        titleLabel.font = UI.titleFont
+        self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(UI.sideMargin)
             $0.top.equalToSuperview().inset(UI.titleTopMargin)
@@ -106,5 +91,18 @@ class MemoListCell: UITableViewCell {
             $0.bottom.equalToSuperview().inset(UI.descriptTopMargin)
             $0.trailing.equalTo(thumbnailView.snp.leading).inset(-UI.sideMargin)
         }
+    }
+    
+    private func parseDayOrTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.dateFormat = "yyyy.MM.dd"
+        
+        if formatter.string(from: date) == formatter.string(from: Date()) {
+            formatter.dateFormat = "a hh:mm"
+        }
+        
+        return formatter.string(from: date)
     }
 }

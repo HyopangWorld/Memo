@@ -16,10 +16,12 @@ import SnapKit
 extension EditViewController {
     func buildMemoBoard(data: Memo?) {
         buildTitleView(text: data?.title ?? "" )
-        buildDescriptionView(text: data?.description ?? "", topView: titleView)
-        buildToolbar()
-        buildImageSlider(list: data?.imageList ?? [])
-        
+        buildDescriptionView(text: data?.description ?? "")
+        buildImageSlider(list: data?.imageList ?? [], btmView: buildToolbar())
+        buildScrollView()
+    }
+    
+    private func buildScrollView() {
         scrollView.do {
             $0.setContentOffset(.zero, animated: false)
             $0.backgroundColor = Constants.UI.Base.backgroundColor
@@ -56,7 +58,7 @@ extension EditViewController {
         }
     }
     
-    private func buildDescriptionView(text: String, topView: UIView) {
+    private func buildDescriptionView(text: String) {
         descriptionView.do {
             $0.font = UI.descriptionFont
             $0.text = text
@@ -67,7 +69,7 @@ extension EditViewController {
         }
         scrollView.addSubview(descriptionView)
         descriptionView.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom).offset(UI.elmtMargin)
+            $0.top.equalTo(titleView.snp.bottom).offset(UI.elmtMargin)
             $0.leading.width.equalToSuperview().inset(UI.elmtMargin)
         }
     }
@@ -76,12 +78,7 @@ extension EditViewController {
 // MARK: - ImageSlider
 
 extension EditViewController {
-    func reloadImageSlider() {
-        for view in self.sliderView.subviews{ view.removeFromSuperview() }
-        self.buildImageSlider(list: self.memo?.imageList ?? [])
-    }
-    
-    private func buildImageSlider(list: [String]) {
+    private func buildImageSlider(list: [String], btmView: UIView) {
         sliderView.do {
             $0.backgroundColor = UI.layerColor
             $0.layer.borderColor = UI.layerColor.cgColor
@@ -89,38 +86,50 @@ extension EditViewController {
             $0.showsHorizontalScrollIndicator = false
         }
         view.addSubview(sliderView)
-        var bottom = Constants.UI.Base.toolBarHeight
-        if #available(iOS 11.0, *) { bottom += Constants.UI.Base.safeAreaInsetsTop >= 44 ? Constants.UI.Base.safeAreaInsetsTop : 0 }
         sliderView.snp.makeConstraints {
             $0.leading.width.equalToSuperview()
             $0.height.equalTo(UI.imgSize)
-            $0.bottom.equalToSuperview().inset(bottom)
+            $0.bottom.equalTo(btmView.snp.top)
         }
         
-        if list.count <= 0 {
-            let notice = UILabel()
-            notice.text = "사진을 추가해 보세요."
-            notice.textColor = UIColor(displayP3Red: (180/255), green: (180/255), blue: (180/255), alpha: 1)
-            sliderView.addSubview(notice)
-            notice.snp.makeConstraints {
-                $0.centerX.centerY.equalToSuperview()
-            }
+        buildImages(list: list)
+    }
+    
+    func buildImages(list: [String]) {
+        for view in self.sliderView.subviews{
+            view.removeFromSuperview()
         }
+        
+        if list.count <= 0 { buildSliderNotice() }
         
         for i in 0..<list.count {
-            buildImage(i: i, value: list[i])
+            let imageView = buildImage(i: i, value: list[i])
+            buildDelButton(imageView: imageView, index: i)
         }
         
         sliderView.contentSize = CGSize(width: UI.imgSize * CGFloat(list.count) + UI.elmtMargin * CGFloat(list.count+1), height: UI.imgSize)
     }
     
-    private func buildImage(i: Int, value: String) {
+    private func buildSliderNotice() {
+        let notice = UILabel()
+        notice.do {
+            $0.text = TEXT.notice
+            $0.textColor = UI.noticeColor
+        }
+        sliderView.addSubview(notice)
+        notice.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+        }
+    }
+    
+    private func buildImage(i: Int, value: String) -> UIImageView {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.accessibilityIdentifier = "\(i)"
-        if let image = ImageManagerImpl.shard.loadImage(fileName: value) { imageView.image = image }
-        else { imageView.kf.setImage(with: URL(string: value), placeholder: UIImage(named: "placeholder")) }
-        
+        imageView.do {
+            $0.contentMode = .scaleAspectFit
+            $0.accessibilityIdentifier = "\(i)"
+            if let image = ImageManagerImpl.shard.loadImage(fileName: value) { $0.image = image }
+            else { $0.kf.setImage(with: URL(string: value), placeholder: UIImage(named: "placeholder")) }
+        }
         sliderView.addSubview(imageView)
         imageView.snp.makeConstraints {
             $0.centerY.equalToSuperview().inset(UI.elmtMargin)
@@ -128,53 +137,58 @@ extension EditViewController {
             $0.height.width.equalTo(UI.imgSize)
         }
         
-        let alert = UIAlertController(title: "삭제하시겠습니까?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
-            guard let index = Int(imageView.accessibilityIdentifier ?? "") else { return }
-            self?.memo?.imageList?.remove(at: index)
-            for view in self?.sliderView.subviews ?? [] { view.removeFromSuperview() }
-            self?.buildImageSlider(list: self?.memo?.imageList ?? [])
-        }))
-        
+        return imageView
+    }
+    
+    private func buildDelButton(imageView: UIImageView, index i: Int) {
         let deleteBtn = UIButton()
         deleteBtn.setImage(UIImage(named: "delete_button.png"), for: .normal)
-        deleteBtn.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.present(alert, animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
-        
         sliderView.addSubview(deleteBtn)
         deleteBtn.snp.makeConstraints {
             $0.leading.equalToSuperview().offset((UI.imgSize + UI.elmtMargin) * CGFloat(i))
             $0.top.equalToSuperview()
             $0.width.height.equalTo(UI.delBtnSize)
         }
+        
+        deleteBtn.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let index = Int(imageView.accessibilityIdentifier ?? "") else { return }
+                self?.memo?.imageList?.remove(at: index)
+                
+                self?.buildImages(list: self?.memo?.imageList ?? [])
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Toolbar
 
 extension EditViewController {
-    private func buildToolbar() {
+    private func buildToolbar() -> UIToolbar {
         let cameraBtn = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: nil)
         let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let actionSheet = buildActionSheet()
+        
         cameraBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.present(actionSheet, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         
-        _ = buildBtmToolbar(items: [leftSpace, cameraBtn])
+        return buildBtmToolbar(items: [leftSpace, cameraBtn])
     }
     
     private func buildActionSheet() -> UIAlertController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: PhotoType.take.getPhotoTypeName(), style: .default, handler: { _ in self.openCamera() }))
-        actionSheet.addAction(UIAlertAction(title: PhotoType.library.getPhotoTypeName(), style: .default, handler: { _ in self.openAlbum() }))
-        actionSheet.addAction(UIAlertAction(title: PhotoType.url.getPhotoTypeName(), style: .default, handler: { _ in self.openUrl() }))
+        actionSheet.addAction(UIAlertAction(title: PhotoType.take.getPhotoTypeName(), style: .default,handler: { [weak self] _ in
+            self?.openCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: PhotoType.library.getPhotoTypeName(), style: .default, handler: { [weak self] _ in
+            self?.openAlbum()
+        }))
+        actionSheet.addAction(UIAlertAction(title: PhotoType.url.getPhotoTypeName(), style: .default, handler: { [weak self] _ in
+            self?.openUrl()
+        }))
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         return actionSheet
@@ -199,16 +213,17 @@ extension EditViewController {
         prompt.addTextField(configurationHandler: { textField in
             textField.placeholder = "Input URL for download image file..."
         })
-        prompt.addAction(UIAlertAction(title: "다운로드", style: .default, handler: { _ in
+        prompt.addAction(UIAlertAction(title: "다운로드", style: .default, handler: { [weak self] _ in
             if let url = prompt.textFields?.first?.text {
-                self.memo?.imageList?.append(url)
-                self.reloadImageSlider()
+                self?.memo?.imageList?.append(url)
+                self?.buildImages(list: self?.memo?.imageList ?? [])
             }
         }))
-        prompt.addAction(UIAlertAction(title: "붙여넣기", style: .default, handler: { _ in
+        prompt.addAction(UIAlertAction(title: "붙여넣기", style: .default, handler: { [weak self] _ in
             guard let textfield = prompt.textFields?.first else { return }
             textfield.text = UIPasteboard.general.string ?? ""
-            self.present(prompt, animated: true, completion: nil)
+            
+            self?.present(prompt, animated: true, completion: nil)
         }))
         prompt.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         

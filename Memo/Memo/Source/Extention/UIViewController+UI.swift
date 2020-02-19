@@ -14,11 +14,9 @@ extension UIViewController {
         toolBar.setItems(items, animated: true)
         
         view.addSubview(toolBar)
-        var bottom: CGFloat = 0
-        if #available(iOS 11.0, *) { bottom = Constants.UI.Base.safeAreaInsetsTop >= 44 ? Constants.UI.Base.safeAreaInsetsTop : 0 }
         toolBar.snp.makeConstraints {
             $0.trailing.leading.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(bottom)
+            $0.bottom.equalToSuperview().inset(self.getNochiHeight())
             $0.height.equalTo(Constants.UI.Base.toolBarHeight)
         }
         

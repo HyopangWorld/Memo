@@ -27,8 +27,6 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     
     let tableView = UITableView()
     
-    let deleteCell = PublishRelay<IndexPath>()
-    
     override func bind(_ viewModel: IndexViewBindable) {
         self.disposeBag = DisposeBag()
         self.viewModel = viewModel
@@ -36,14 +34,6 @@ final class IndexViewController: ViewController<IndexViewBindable> {
         self.rx.viewWillAppear
             .map{ _ in Void() }
             .bind(to: viewModel.viewWillAppear)
-            .disposed(by: disposeBag)
-        
-        deleteCell
-            .map { [weak self] indexPath in
-                (self?.tableView.cellForRow(at: indexPath) as! MemoListCell).date
-            }
-            .filterNil()
-            .bind(to: viewModel.deleteData)
             .disposed(by: disposeBag)
         
         viewModel.cellData
@@ -60,9 +50,9 @@ final class IndexViewController: ViewController<IndexViewBindable> {
     }
     
     override func layout() {
-        view.backgroundColor = Constants.UI.Base.backgroundColor
         navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
         navigationItem.title = TEXT.title
+        view.backgroundColor = Constants.UI.Base.backgroundColor
         
         buildMemoList(btmView: buildToolbar())
     }
@@ -106,7 +96,8 @@ extension IndexViewController {
 extension IndexViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "삭제") { [weak self] (action, indexPath) in
-            self?.deleteCell.accept(indexPath)
+            guard let cellDate = (self?.tableView.cellForRow(at: indexPath) as! MemoListCell).date else { return }
+            self?.viewModel?.deleteData.accept(cellDate)
         }
         
         return [delete]

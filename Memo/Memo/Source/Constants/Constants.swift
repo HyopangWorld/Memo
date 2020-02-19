@@ -51,12 +51,17 @@ public struct Constants {
             static let layerColor: UIColor = UIColor(displayP3Red: (220/255), green: (220/255), blue: (220/255), alpha: 1)
             static let imgSize: CGFloat = 150
             static let delBtnSize: CGFloat = 30
+            static let noticeColor: UIColor = UIColor(displayP3Red: (180/255), green: (180/255), blue: (180/255), alpha: 1)
         }
     }
     
     struct Text {
         struct Index {
             static let title: String = "메모".localizedCapitalized
+        }
+        
+        struct Edit {
+            static let notice: String = "사진을 추가해 보세요.".localizedCapitalized
         }
     }
 }

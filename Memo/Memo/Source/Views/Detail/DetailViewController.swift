@@ -42,6 +42,7 @@ final class DetailViewController: ViewController<DetailViewBindable> {
             .emit(onNext: { [weak self] memo in
                 guard let alert = self?.buildAlert() else { return }
                 guard let btmView = self?.buildToolbar(alert: alert, data: memo) else { return }
+                
                 self?.buildMemoBoard(btmView: btmView, data: memo)
             })
             .disposed(by: disposeBag)
@@ -54,9 +55,9 @@ final class DetailViewController: ViewController<DetailViewBindable> {
     }
     
     override func layout() {
-        view.backgroundColor = Constants.UI.Base.backgroundColor
         navigationController?.navigationBar.barTintColor = Constants.UI.Base.backgroundColor
         navigationController?.navigationBar.tintColor = Constants.UI.Base.foregroundColor
+        view.backgroundColor = Constants.UI.Base.backgroundColor
     }
 }
 

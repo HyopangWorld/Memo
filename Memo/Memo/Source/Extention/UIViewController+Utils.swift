@@ -12,16 +12,20 @@ import RxCocoa
 
 extension UIViewController {
     func getTopAreaHeight() -> CGFloat {
-        var height: CGFloat = navigationController?.navigationBar.frame.height ?? 0
-        if #available(iOS 11.0, *) { height += Constants.UI.Base.safeAreaInsetsTop  }
-        else { height += UIApplication.shared.statusBarFrame.size.height }
-        
-        return height
+        return (UIApplication.shared.statusBarFrame.size.height + (navigationController?.navigationBar.frame.height ?? 0))
     }
     
     func setTouchEndEditing(disposeBag: DisposeBag) {
         view.rx.tapGesture()
             .subscribe(onNext: { [weak self] _ in self?.view.endEditing(true) })
             .disposed(by: disposeBag)
+    }
+    
+    func getNochiHeight() -> CGFloat {
+        if #available(iOS 11.0, *) {
+            return Constants.UI.Base.safeAreaInsetsTop >= 44 ? Constants.UI.Base.safeAreaInsetsTop : 0
+        }
+        
+        return 0
     }
 }
