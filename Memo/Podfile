@@ -7,20 +7,20 @@ target 'Memo' do
 
   # Pods for Memo
   # RxSwift + Dependencies
-  pod 'RxSwift', '~> 5.0.1'
-  pod 'RxCocoa', '~> 5.0.1'
-  pod 'RxOptional', '~> 4.1.0'
-  pod 'RxAppState', '~> 1.6.0'
-  pod 'RxDataSources', '~> 4.0'
-  pod 'RxGesture', '~> 3.0.1'
+  pod 'RxSwift', '~> 5.0.1'      # https://github.com/ReactiveX/RxSwift
+  pod 'RxCocoa', '~> 5.0.1'      # https://github.com/ReactiveX/RxSwift
+  pod 'RxOptional', '~> 4.1.0'   # https://github.com/RxSwiftCommunity/RxOptional
+  pod 'RxAppState', '~> 1.6.0'   # https://github.com/pixeldock/RxAppState
+  pod 'RxDataSources', '~> 4.0'  # https://github.com/RxSwiftCommunity/RxDataSources
+  pod 'RxGesture', '~> 3.0.1'    # https://github.com/RxSwiftCommunity/RxGesture
 
   # UI (Autolayout, Image, Label)
-  pod 'SnapKit', '~> 5.0.1'
-  pod 'Kingfisher', '~> 5.11.0'
+  pod 'SnapKit', '~> 5.0.1'       # https://github.com/SnapKit/SnapKit
+  pod 'Kingfisher', '~> 5.11.0'   # https://github.com/onevcat/Kingfisher
 
   # Other Swift Utilites
-  pod 'Then', '~> 2.6.0'
-  pod 'SwiftLint'
+  pod 'Then', '~> 2.6.0'     # https://github.com/devxoul/Then
+  pod 'SwiftLint'            # https://github.com/realm/SwiftLint
 
   target 'MemoTests' do
     inherit! :search_paths

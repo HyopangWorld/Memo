@@ -102,7 +102,7 @@ extension IndexViewController: UITableViewDelegate {
         
         return [delete]
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? MemoListCell else { return }
         let detailViewController = DetailViewController()

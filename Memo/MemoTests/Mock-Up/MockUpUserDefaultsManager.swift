@@ -1,19 +1,21 @@
 //
-//  UserDefaultsManagerImpl.swift
-//  Memo
+//  MockUpUserDefaultsManager.swift
+//  MemoTests
 //
-//  Created by 김효원 on 11/02/2020.
+//  Created by 김효원 on 19/02/2020.
 //  Copyright © 2020 김효원. All rights reserved.
 //
 
 import Foundation
 
-struct UserDefaultsManagerImpl: UserDefaultsManager {
+@testable import Memo
+
+struct MockUpUserDefaultsManager: UserDefaultsManager {
     private let memoKey = "Memo"
     private let dummyData = Memo(date: Date(), title: "", description: "", imageList: [])
 
     func getMemoList() -> [Memo]? {
-        guard let list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
+        let list = MemoDummyData.memoDataList
         
         return parseListToMemo(list: list)
     }
@@ -23,20 +25,15 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
     }
     
     func removeMemo(date: Date) -> [Memo]? {
-        guard var list = UserDefaults.standard.dictionary(forKey: memoKey) else { return nil }
+        var list = MemoDummyData.memoDataList
         list.removeValue(forKey: "\(date)")
-        UserDefaults.standard.set(list, forKey: memoKey)
-        UserDefaults.standard.synchronize()
         
         return parseListToMemo(list: list)
     }
     
     func updateMemo(memo: Memo) -> [Memo]? {
-        var list = Dictionary<String, Any>()
-        if let data = UserDefaults.standard.dictionary(forKey: memoKey) { list = data }
+        var list = MemoDummyData.memoDataList
         list.updateValue(parseMemoToList(memo: memo), forKey: "\(memo.date)")
-        UserDefaults.standard.set(list, forKey: memoKey)
-        UserDefaults.standard.synchronize()
         
         return parseListToMemo(list: list)
     }
@@ -46,7 +43,7 @@ struct UserDefaultsManagerImpl: UserDefaultsManager {
     }
 }
 
-extension UserDefaultsManagerImpl {
+extension MockUpUserDefaultsManager {
     private func parseListToMemo(list: Dictionary<String, Any>) -> [Memo] {
         return list.values.map { dictionary -> Memo in
             guard let memo = dictionary as? Dictionary<String, Any> else { return dummyData }
