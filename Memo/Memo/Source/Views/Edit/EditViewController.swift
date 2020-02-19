@@ -39,7 +39,7 @@ final class EditViewController: ViewController<EditViewBindable> {
         self.viewModel = viewModel
         
         self.rx.viewDidLoad
-            .filter { self.memo?.date == nil }
+            .filter { [weak self] in self?.memo?.date == nil }
             .bind(to: viewModel.createData)
             .disposed(by: disposeBag)
         
