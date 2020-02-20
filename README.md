@@ -15,13 +15,13 @@
 
 <br>
 
-<img src="./Contents/index.gif" width="30%" height="35%" style="float:left"/><img src="./Contents/edit.gif" width="30%" height="35%" style="float:left"/><img src="./Contents/detail.gif" width="30%" height="35%" style="float:left"/>
+<p align="center"><img src="./Contents/index.gif" width="30%" height="35%" style="float:left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./Contents/edit.gif" width="30%" height="35%" style="float:left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./Contents/detail.gif" width="30%" height="35%" style="float:left"/></p>
 
 <br>
 
 ## Design
 MVVM Desgin Pattern을 사용하였다.
-<center><img src="./Contents/design.png" /></center>
+<p align="center"><img src="./Contents/design.png"></p>
 
 <br>
 
