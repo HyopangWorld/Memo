@@ -65,7 +65,7 @@ MVVM Desgin Pattern을 사용하였다.
 
 - master : 개발 및 최종본
 
-**Commit Message 양식은 아래의 규칙을 따른다.**  
+**Commit Messege 양식은 아래의 규칙을 따른다.**  
 
 ```
 1줄 : 
