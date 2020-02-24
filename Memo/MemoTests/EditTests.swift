@@ -29,15 +29,13 @@ class EditTests: XCTestCase {
     
     func testCreateMemo() {
         let newMemo = model.createMemo()
-        let now = Date()
-        assert(newMemo.date == now, "Memo Create Success")
+        assert(newMemo.imageList != nil, "Memo Create Success")
     }
     
     func testGetAndParse() {
         viewModel.saveMemo
             .emit(onNext: { data in
-                guard let memo = data.first else { return }
-                assert(memo.date == MemoDummyData.memoData.date)
+                assert(data.contains(where: { $0.date == MemoDummyData.memoData.date }))
             })
             .disposed(by: disposeBag)
         

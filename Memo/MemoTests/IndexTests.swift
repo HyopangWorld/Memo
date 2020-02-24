@@ -34,9 +34,9 @@ class IndexTests: XCTestCase {
     }
     
     func testParseData() {
-        let memoData = [MemoDummyData.memoData]
-        let parsedData = model.parseMemo(memoList: memoData)
-        assert(parsedData.first?.date == Date(timeIntervalSince1970: 86400), "Memo Cell Date Parsing Success")
+        guard let memoList = model.getMemoList() else { return }
+        let parsedData = model.parseMemo(memoList: memoList)
+        assert(parsedData.first?.date == Date(timeIntervalSince1970: 86405), "Memo Cell Date Parsing Success")
     }
     
     func testGetAndParse() {
