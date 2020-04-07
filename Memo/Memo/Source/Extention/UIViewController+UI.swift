@@ -22,4 +22,11 @@ extension UIViewController {
         
         return toolBar
     }
+    
+    func showNotice(noti: String) {
+        let notice = UIAlertController(title: noti, message: nil, preferredStyle: .alert)
+        notice.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        
+        self.present(notice, animated: true, completion: nil)
+    }
 }

@@ -69,7 +69,8 @@ final class EditViewController: ViewController<EditViewBindable> {
         
         doneBtn.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.memo?.title = self?.titleView.text ?? ""
+                let title = self?.titleView.text ?? ""
+                self?.memo?.title = title.trimmingCharacters(in: .whitespacesAndNewlines) != "" ? title : "새로운 메모"
                 self?.memo?.description = self?.descriptionView.text ?? ""
                 if let memo = self?.memo { self?.viewModel?.saveData.accept(memo) }
             })

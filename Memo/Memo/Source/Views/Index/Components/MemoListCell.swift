@@ -49,7 +49,11 @@ class MemoListCell: UITableViewCell {
         
         if let thumbnail = data.thumbnail {
             if let image = ImageManagerImpl.shard.loadImage(fileName: thumbnail) { thumbnailView.image = image }
-            else { thumbnailView.kf.setImage(with: URL(string: thumbnail), placeholder: UIImage(named: "placeholder")) }
+            else {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    self.thumbnailView.kf.setImage(with: URL(string: thumbnail), placeholder: UIImage(named: "placeholder"))
+                }
+            }
         }
     }
     

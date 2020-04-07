@@ -124,7 +124,11 @@ extension DetailViewController {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
             if let image = ImageManagerImpl.shard.loadImage(fileName: imageList[i]) { imageView.image = image }
-            else { imageView.kf.setImage(with: URL(string: imageList[i]), placeholder: UIImage(named: "placeholder")) }
+            else {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    imageView.kf.setImage(with: URL(string: imageList[i]), placeholder: UIImage(named: "placeholder"))
+                }
+            }
             
             scrollView.addSubview(imageView)
             imageView.snp.makeConstraints {

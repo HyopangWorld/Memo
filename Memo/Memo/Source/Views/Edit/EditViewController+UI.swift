@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Photos
+import AVKit
 
 // MARK: - MemoBoard
 
@@ -36,7 +38,9 @@ extension EditViewController {
         
         Observable.combineLatest(titleView.rx.didChange.startWith(Void()), descriptionView.rx.didChange.startWith(Void()))
             .subscribe(onNext: { [weak self] _ in
-                let height = (self?.titleView.getEstimatedSize().height ?? 0) + (self?.descriptionView.getEstimatedSize().height ?? 0) + (UI.elmtMargin * 3)
+                var height = (self?.titleView.getEstimatedSize().height ?? 0)
+                height += (self?.descriptionView.getEstimatedSize().height ?? 0)
+                height += (UI.elmtMargin * 3)
                 self?.scrollView.contentSize = CGSize(width: self?.view.frame.width ?? 0, height: height)
             })
             .disposed(by: disposeBag)
@@ -128,7 +132,11 @@ extension EditViewController {
             $0.contentMode = .scaleAspectFit
             $0.accessibilityIdentifier = "\(i)"
             if let image = ImageManagerImpl.shard.loadImage(fileName: value) { $0.image = image }
-            else { $0.kf.setImage(with: URL(string: value), placeholder: UIImage(named: "placeholder")) }
+            else {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    imageView.kf.setImage(with: URL(string: value), placeholder: UIImage(named: "placeholder"))
+                }
+            }
         }
         sliderView.addSubview(imageView)
         imageView.snp.makeConstraints {
@@ -195,17 +203,39 @@ extension EditViewController {
     }
     
     private func openCamera() {
-        if UIImagePickerController .isSourceTypeAvailable(.camera) {
-            imagePicker.sourceType = .camera
-            present(imagePicker, animated: false, completion: nil)
+        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+            if UIImagePickerController .isSourceTypeAvailable(.camera) {
+                self.imagePicker.sourceType = .camera
+                self.present(self.imagePicker, animated: false, completion: nil)
+            }
+        } else { requestCameraAuth() }
+    }
+    
+    private func requestCameraAuth() {
+        AVCaptureDevice.requestAccess(for: .video) { [weak self] response in
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if response { self?.openCamera() }
+                else { self?.showNotice(noti: "카메라를 사용할 수 없습니다.\n[설정] 에서 허용할 수 있습니다.") }
+            }
         }
     }
     
     private func openAlbum() {
-        if UIImagePickerController .isSourceTypeAvailable(.photoLibrary) {
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: false, completion: nil)
-        }
+        if PHPhotoLibrary.authorizationStatus() == .authorized {
+            if UIImagePickerController .isSourceTypeAvailable(.photoLibrary) {
+                self.imagePicker.sourceType = .photoLibrary
+                self.present(self.imagePicker, animated: false, completion: nil)
+            }
+        } else { requestAlbumAuth() }
+    }
+    
+    private func requestAlbumAuth() {
+        PHPhotoLibrary.requestAuthorization({ [weak self] status in
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if status == .authorized { self?.openAlbum() }
+                else { self?.showNotice(noti: "앨범을 사용할 수 없습니다.\n[설정] 에서 허용할 수 있습니다.") }
+            }
+        })
     }
     
     private func openUrl() {
