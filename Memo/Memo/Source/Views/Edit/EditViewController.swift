@@ -43,12 +43,12 @@ final class EditViewController: ViewController<EditViewBindable> {
             .bind(to: viewModel.createData)
             .disposed(by: disposeBag)
         
-        viewModel.newMemo.asObservable()
-            .subscribe(onNext: { [weak self] data in self?.memo = data })
+        viewModel.newMemo
+            .emit(onNext: { [weak self] data in self?.memo = data })
             .disposed(by: disposeBag)
         
-        viewModel.saveMemo.asObservable()
-            .subscribe(onNext: { [weak self] _ in self?.navigationController?.popToRootViewController(animated: true) })
+        viewModel.saveMemo
+            .emit(onNext: { [weak self] _ in self?.navigationController?.popToRootViewController(animated: true) })
             .disposed(by: disposeBag)
     }
     
